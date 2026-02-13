@@ -255,6 +255,24 @@
     transition: all 0.15s;
   }
   .gt-link:hover { background: rgba(45,95,139,0.15); }
+  .copy-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    margin-top: 0.4rem;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--text-light);
+    background: rgba(0,0,0,0.04);
+    border: 1px solid var(--border);
+    padding: 0.3rem 0.7rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .copy-btn:hover { background: rgba(0,0,0,0.08); }
+  .copy-btn.copied { background: var(--green-light); color: var(--green); border-color: var(--green); }
 
   /* ── NAV BUTTONS ── */
   .card-nav {
@@ -738,6 +756,7 @@ function renderCard() {
             <div class="card-topic-badge" id="cardTopic"></div>
             <div class="card-number" id="cardNumber"></div>
             <div class="card-word" id="cardFrontWord"></div>
+            <button class="copy-btn" id="copyBtn" onclick="event.stopPropagation(); copyWord()">📋 Kopier</button>
             <div class="card-tap-hint">tap to flip</div>
           </div>
           <div class="card-face card-back">
@@ -777,6 +796,17 @@ function updateProgress() {
 // ═══════════════════════════════════════════════
 // ACTIONS
 // ═══════════════════════════════════════════════
+function copyWord() {
+  if (!filteredCards.length) return;
+  const word = filteredCards[currentIndex].no;
+  navigator.clipboard.writeText(word).then(() => {
+    const btn = document.getElementById('copyBtn');
+    btn.textContent = '✓ Kopiert!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = '📋 Kopier'; btn.classList.remove('copied'); }, 1200);
+  });
+}
+
 function flipCard() { const f = document.getElementById('flashcard'); if(f) f.classList.toggle('flipped'); }
 function nextCard() { if(!filteredCards.length) return; currentIndex = (currentIndex+1)%filteredCards.length; renderCard(); }
 function prevCard() { if(!filteredCards.length) return; currentIndex = (currentIndex-1+filteredCards.length)%filteredCards.length; renderCard(); }
