@@ -501,9 +501,13 @@
     <h3>Importer egne ord</h3>
     <p>Last opp en CSV-fil eller lim inn ordene direkte.<br>
     Format: <code>norsk;english</code> eller <code>norsk;english;topic</code> (én per linje).</p>
-    <pre>huset;the house
+    <p style="font-size:0.8rem;color:var(--teal);">🌐 <strong>Google Translate:</strong> Last opp hele <code>translations.csv</code> fra Google Takeout — norsk↔engelsk filtreres automatisk!</p>
+    <pre>norsk;english format:
+huset;the house
 å spise;to eat;Mat
-god morgen;good morning;Fraser</pre>
+
+Google Translate format (auto-detected):
+Norwegian,English,huset,the house</pre>
 
     <div class="file-input-wrap">
       <label for="csvFile">📁 Velg CSV-fil</label>
@@ -556,10 +560,72 @@ function getCardId(c) { return c.no + '|' + c.en; }
 // ═══════════════════════════════════════════════
 // CSV PARSING
 // ═══════════════════════════════════════════════
+// Simple CSV row parser that handles quoted fields
+function parseCSVRow(line) {
+  const parts = [];
+  let current = '';
+  let inQuotes = false;
+  for (let i = 0; i < line.length; i++) {
+    const ch = line[i];
+    if (ch === '"') { inQuotes = !inQuotes; continue; }
+    if (ch === ',' && !inQuotes) { parts.push(current.trim()); current = ''; continue; }
+    current += ch;
+  }
+  parts.push(current.trim());
+  return parts;
+}
+
+// Detect Google Translate export: rows start with language names
+const GT_LANGUAGES = new Set([
+  'Afrikaans','Albanian','Amharic','Arabic','Armenian','Azerbaijani','Basque','Belarusian',
+  'Bengali','Bosnian','Bulgarian','Catalan','Cebuano','Chinese','Corsican','Croatian','Czech',
+  'Danish','Dutch','English','Esperanto','Estonian','Filipino','Finnish','French','Galician',
+  'Georgian','German','Greek','Gujarati','Haitian','Hausa','Hawaiian','Hebrew','Hindi','Hmong',
+  'Hungarian','Icelandic','Igbo','Indonesian','Irish','Italian','Japanese','Javanese','Kannada',
+  'Kazakh','Khmer','Kinyarwanda','Korean','Kurdish','Kyrgyz','Lao','Latin','Latvian','Lithuanian',
+  'Luxembourgish','Macedonian','Malagasy','Malay','Malayalam','Maltese','Maori','Marathi',
+  'Mongolian','Myanmar','Nepali','Norwegian','Odia','Pashto','Persian','Polish','Portuguese',
+  'Punjabi','Romanian','Russian','Samoan','Serbian','Shona','Sindhi','Sinhala','Slovak',
+  'Slovenian','Somali','Spanish','Sundanese','Swahili','Swedish','Tajik','Tamil','Tatar',
+  'Telugu','Thai','Turkish','Turkmen','Ukrainian','Urdu','Uyghur','Uzbek','Vietnamese',
+  'Welsh','Xhosa','Yiddish','Yoruba','Zulu'
+]);
+
 function parseCSV(text, defaultTopic) {
+  const lines = text.trim().split('\n');
+  if (!lines.length) return [];
+
+  // Auto-detect Google Translate format by checking first line
+  const firstRow = parseCSVRow(lines[0].replace(/\r$/, ''));
+  const isGT = firstRow.length >= 4 && GT_LANGUAGES.has(firstRow[0]) && GT_LANGUAGES.has(firstRow[1]);
+
+  if (isGT) {
+    // Google Translate export: lang1,lang2,text1,text2
+    // Filter for Norwegian↔English only
+    const words = [];
+    let skipped = 0;
+    for (const raw of lines) {
+      const row = parseCSVRow(raw.replace(/\r$/, ''));
+      if (row.length < 4) continue;
+      const [lang1, lang2, text1, text2] = row;
+
+      let no, en;
+      if (lang1 === 'Norwegian' && lang2 === 'English') { no = text1; en = text2; }
+      else if (lang1 === 'English' && lang2 === 'Norwegian') { no = text2; en = text1; }
+      else { skipped++; continue; }
+
+      no = no.replace(/\.$/, '').trim();
+      en = en.replace(/\.$/, '').trim();
+      if (no && en) words.push({ no, en, topic: defaultTopic || 'Google Translate' });
+    }
+    if (skipped > 0) console.log(`Google Translate: imported ${words.length} NO↔EN, skipped ${skipped} other languages`);
+    return words;
+  }
+
+  // Normal CSV: norsk;english;topic
   const words = [];
-  for (const raw of text.trim().split('\n')) {
-    const line = raw.trim();
+  for (const raw of lines) {
+    const line = raw.replace(/\r$/, '').trim();
     if (!line || line.startsWith('#')) continue;
 
     let parts;
