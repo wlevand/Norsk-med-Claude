@@ -1,0 +1,1193 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Norskprøve A2 – Ordforråd & Temaer</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=IBM+Plex+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f5f0e8;
+    --bg-card: #fffdf8;
+    --bg-dark: #1a1a2e;
+    --accent: #ba2d0b;
+    --accent-light: #e8563a;
+    --blue: #2d5f8b;
+    --blue-light: #e8f0f7;
+    --green: #2d6b4a;
+    --green-light: #e5f2ec;
+    --purple: #5b3a7a;
+    --purple-light: #f0e8f7;
+    --orange: #c06014;
+    --orange-light: #fdf0e4;
+    --teal: #1a7a6d;
+    --teal-light: #e2f5f2;
+    --text: #2a2a2a;
+    --text-light: #6b6b6b;
+    --border: #d8d0c4;
+    --shadow: 0 2px 12px rgba(0,0,0,0.06);
+    --shadow-hover: 0 4px 20px rgba(0,0,0,0.10);
+    --radius: 10px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'IBM Plex Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.65;
+    font-weight: 400;
+    font-size: 15px;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: var(--bg-dark);
+    color: #fff;
+    padding: 2.5rem 1.5rem 2rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 20% 50%, rgba(45,107,74,0.15) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 30%, rgba(91,58,122,0.12) 0%, transparent 60%);
+  }
+  header * { position: relative; }
+  header h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.3rem;
+  }
+  header h1 span { color: #7dcea0; }
+  header p { font-size: 0.95rem; opacity: 0.7; font-weight: 300; }
+  .header-badge {
+    display: inline-block;
+    background: var(--green);
+    color: #fff;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    margin-bottom: 0.75rem;
+  }
+  .back-link {
+    display: inline-block;
+    margin-top: 0.6rem;
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.5);
+    text-decoration: none;
+  }
+  .back-link:hover { color: rgba(255,255,255,0.8); }
+
+  /* ── NAV ── */
+  nav {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--bg);
+    padding-top: 0.7rem;
+    padding-bottom: 0.7rem;
+    border-bottom: 1px solid var(--border);
+  }
+  nav a {
+    font-size: 0.73rem;
+    font-weight: 500;
+    text-decoration: none;
+    color: var(--text-light);
+    padding: 0.3rem 0.65rem;
+    border-radius: 20px;
+    border: 1px solid transparent;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  nav a:hover, nav a.active {
+    background: var(--bg-card);
+    border-color: var(--border);
+    color: var(--text);
+  }
+
+  /* ── MAIN ── */
+  main {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 1.5rem 1rem 4rem;
+  }
+
+  /* ── SECTIONS ── */
+  section { margin-bottom: 2.5rem; }
+  section > h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.5rem;
+    font-weight: 400;
+    margin-bottom: 0.15rem;
+    padding-bottom: 0.45rem;
+    border-bottom: 2px solid var(--green);
+    display: inline-block;
+  }
+  section > .section-desc {
+    font-size: 0.85rem;
+    color: var(--text-light);
+    margin-bottom: 1rem;
+    margin-top: 0.25rem;
+  }
+
+  /* ── TOPIC BLOCKS ── */
+  .topic-block {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    margin-bottom: 1rem;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    transition: box-shadow 0.2s;
+  }
+  .topic-block:hover { box-shadow: var(--shadow-hover); }
+  .topic-header {
+    padding: 0.9rem 1.2rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    user-select: none;
+  }
+  .topic-header h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .topic-header h3 .emoji { font-size: 1.15rem; }
+  .topic-header .arrow {
+    font-size: 1.2rem;
+    transition: transform 0.3s;
+    color: var(--text-light);
+  }
+  .topic-block.open .topic-header .arrow { transform: rotate(180deg); }
+  .topic-body {
+    display: none;
+    padding: 0 1.2rem 1.2rem;
+  }
+  .topic-block.open .topic-body { display: block; }
+
+  /* ── VOCAB GRID ── */
+  .vocab-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 0.4rem;
+    margin: 0.6rem 0;
+  }
+  .vocab-item {
+    background: var(--bg);
+    border-radius: 6px;
+    padding: 0.4rem 0.65rem;
+    font-size: 0.83rem;
+    display: flex;
+    justify-content: space-between;
+    gap: 0.5rem;
+  }
+  .vocab-item .no { font-weight: 600; }
+  .vocab-item .en { color: var(--text-light); font-size: 0.78rem; text-align: right; }
+
+  /* ── PHRASE LIST ── */
+  .phrase-list {
+    margin: 0.6rem 0;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .phrase-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+    padding: 0.45rem 0.8rem;
+    font-size: 0.84rem;
+    border-bottom: 1px solid #eee;
+  }
+  .phrase-row:last-child { border-bottom: none; }
+  .phrase-row:nth-child(even) { background: #fefcf7; }
+  .phrase-row .no { font-weight: 500; }
+  .phrase-row .en { color: var(--text-light); }
+
+  /* ── EXAMPLE SENTENCES ── */
+  .examples-section { margin: 0.75rem 0; }
+  .mini-label {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-light);
+    font-weight: 600;
+    margin: 0.75rem 0 0.35rem;
+  }
+  .example-sentence {
+    background: var(--blue-light);
+    border-radius: 8px;
+    padding: 0.55rem 0.85rem;
+    margin-bottom: 0.35rem;
+    font-size: 0.84rem;
+  }
+  .example-sentence .nor {
+    font-weight: 500;
+    display: block;
+    margin-bottom: 0.1rem;
+  }
+  .example-sentence .eng {
+    color: var(--text-light);
+    font-size: 0.78rem;
+    font-style: italic;
+  }
+  .example-sentence .grammar-note {
+    display: inline-block;
+    background: rgba(186,45,11,0.1);
+    color: var(--accent);
+    font-size: 0.68rem;
+    font-weight: 600;
+    padding: 0.1rem 0.4rem;
+    border-radius: 3px;
+    margin-left: 0.3rem;
+    font-style: normal;
+  }
+
+  /* green examples for picture */
+  .example-sentence.pic {
+    background: var(--green-light);
+  }
+  .example-sentence.purple {
+    background: var(--purple-light);
+  }
+  .example-sentence.orange {
+    background: var(--orange-light);
+  }
+  .example-sentence.teal {
+    background: var(--teal-light);
+  }
+
+  /* ── TIP BOX ── */
+  .tip-box {
+    background: var(--green-light);
+    border-left: 3px solid var(--green);
+    border-radius: 0 8px 8px 0;
+    padding: 0.7rem 1rem;
+    margin: 0.7rem 0;
+    font-size: 0.84rem;
+  }
+  .tip-box strong:first-child { display: block; margin-bottom: 0.15rem; }
+  .warn-box {
+    background: var(--orange-light);
+    border-left: 3px solid var(--orange);
+    border-radius: 0 8px 8px 0;
+    padding: 0.7rem 1rem;
+    margin: 0.7rem 0;
+    font-size: 0.84rem;
+  }
+  .warn-box strong:first-child { display: block; margin-bottom: 0.15rem; }
+  .info-box {
+    background: var(--blue-light);
+    border-left: 3px solid var(--blue);
+    border-radius: 0 8px 8px 0;
+    padding: 0.7rem 1rem;
+    margin: 0.7rem 0;
+    font-size: 0.84rem;
+  }
+  .info-box strong:first-child { display: block; margin-bottom: 0.15rem; }
+
+  /* ── STRUCTURE TEMPLATE ── */
+  .structure-box {
+    background: #f9f5ed;
+    border: 1px dashed var(--border);
+    border-radius: 8px;
+    padding: 0.85rem 1rem;
+    margin: 0.7rem 0;
+    font-size: 0.84rem;
+    font-family: 'JetBrains Mono', monospace;
+    line-height: 1.8;
+  }
+  .structure-box em {
+    color: var(--accent);
+    font-style: normal;
+    font-weight: 600;
+  }
+  .structure-box .step-label {
+    font-family: 'IBM Plex Sans', sans-serif;
+    background: var(--blue);
+    color: #fff;
+    font-size: 0.65rem;
+    font-weight: 600;
+    padding: 0.1rem 0.45rem;
+    border-radius: 3px;
+    margin-right: 0.3rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center;
+    padding: 2rem 1rem;
+    font-size: 0.75rem;
+    color: var(--text-light);
+    border-top: 1px solid var(--border);
+    max-width: 960px;
+    margin: 0 auto;
+  }
+
+  @media (max-width: 600px) {
+    .vocab-grid { grid-template-columns: 1fr 1fr; }
+    .phrase-row { grid-template-columns: 1fr; gap: 0.1rem; }
+    nav { gap: 0.25rem; }
+    nav a { font-size: 0.68rem; padding: 0.25rem 0.5rem; }
+  }
+
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+  section { animation: fadeIn 0.4s ease-out; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-badge">Ordforråd & Temaer</div>
+  <h1>Norskprøve <span>A2</span> – Muntlig</h1>
+  <p>Ordforråd, fraser og eksempelsetninger for hvert tema</p>
+  <a href="norsk-a2-studie.html" class="back-link">← Tilbake til grammatikk</a>
+</header>
+
+<nav id="topnav">
+  <a href="#bilde">Bildebeskrivelse</a>
+  <a href="#meg-selv">Om meg selv</a>
+  <a href="#familie">Familie</a>
+  <a href="#jobb">Jobb & utdanning</a>
+  <a href="#fritid">Fritid & hobby</a>
+  <a href="#mat">Mat & helse</a>
+  <a href="#bolig">Bolig & hjem</a>
+  <a href="#vaer">Vær & årstider</a>
+  <a href="#dagligliv">Daglig rutine</a>
+  <a href="#reise">Reise & transport</a>
+  <a href="#handling">Handling & klær</a>
+  <a href="#norge">Livet i Norge</a>
+</nav>
+
+<main>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- BILDEBESKRIVELSE -->
+<!-- ═══════════════════════════════════════════════ -->
+<section id="bilde">
+  <h2>Bildebeskrivelse (Oppgave 2)</h2>
+  <p class="section-desc">This is your toolkit for describing any picture. Learn this structure and vocabulary — it works for every image.</p>
+
+  <div class="topic-block open">
+    <div class="topic-header" onclick="toggle(this)">
+      <h3><span class="emoji">🖼️</span> Struktur for bildebeskrivelse</h3>
+      <span class="arrow">▾</span>
+    </div>
+    <div class="topic-body">
+      <div class="info-box">
+        <strong>Follow this structure to fill 2–3 minutes easily:</strong>
+        Overview → Location → People → Actions → Details → Your thoughts
+      </div>
+
+      <div class="structure-box">
+        <span class="step-label">1 Åpning</span> På bildet ser jeg ... / Bildet viser ...<br>
+        <span class="step-label">2 Sted</span> Det ser ut som ... / De er i/på ...<br>
+        <span class="step-label">3 Venstre</span> Til venstre ser jeg ... / På venstre side ...<br>
+        <span class="step-label">4 Midten</span> I midten av bildet ... / Midt på bildet ...<br>
+        <span class="step-label">5 Høyre</span> Til høyre ser jeg ... / På høyre side ...<br>
+        <span class="step-label">6 Bakgrunn</span> I bakgrunnen kan jeg se ...<br>
+        <span class="step-label">7 Detaljer</span> Det ser ut som det er <em>fint vær</em> / <em>vinter</em> ...<br>
+        <span class="step-label">8 Gjetning</span> Jeg tror at ... / Kanskje ... / Det virker som ...<br>
+        <span class="step-label">9 Mening</span> Det minner meg om ... / Jeg liker bildet fordi ...
+      </div>
+
+      <div class="mini-label">Posisjonsord (where things are)</div>
+      <div class="vocab-grid">
+        <div class="vocab-item"><span class="no">til venstre</span><span class="en">to the left</span></div>
+        <div class="vocab-item"><span class="no">til høyre</span><span class="en">to the right</span></div>
+        <div class="vocab-item"><span class="no">i midten</span><span class="en">in the middle</span></div>
+        <div class="vocab-item"><span class="no">i bakgrunnen</span><span class="en">in the background</span></div>
+        <div class="vocab-item"><span class="no">i forgrunnen</span><span class="en">in the foreground</span></div>
+        <div class="vocab-item"><span class="no">foran</span><span class="en">in front of</span></div>
+        <div class="vocab-item"><span class="no">bak</span><span class="en">behind</span></div>
+        <div class="vocab-item"><span class="no">ved siden av</span><span class="en">next to</span></div>
+        <div class="vocab-item"><span class="no">mellom</span><span class="en">between</span></div>
+        <div class="vocab-item"><span class="no">over</span><span class="en">above</span></div>
+        <div class="vocab-item"><span class="no">under</span><span class="en">under</span></div>
+        <div class="vocab-item"><span class="no">på</span><span class="en">on</span></div>
+      </div>
+
+      <div class="mini-label">Beskrivende verb (what people do)</div>
+      <div class="vocab-grid">
+        <div class="vocab-item"><span class="no">sitter</span><span class="en">is sitting</span></div>
+        <div class="vocab-item"><span class="no">står</span><span class="en">is standing</span></div>
+        <div class="vocab-item"><span class="no">går / spaserer</span><span class="en">is walking</span></div>
+        <div class="vocab-item"><span class="no">løper</span><span class="en">is running</span></div>
+        <div class="vocab-item"><span class="no">snakker</span><span class="en">is talking</span></div>
+        <div class="vocab-item"><span class="no">ler / smiler</span><span class="en">laughs / smiles</span></div>
+        <div class="vocab-item"><span class="no">spiser</span><span class="en">is eating</span></div>
+        <div class="vocab-item"><span class="no">drikker</span><span class="en">is drinking</span></div>
+        <div class="vocab-item"><span class="no">leker</span><span class="en">is playing</span></div>
+        <div class="vocab-item"><span class="no">leser</span><span class="en">is reading</span></div>
+        <div class="vocab-item"><span class="no">jobber</span><span class="en">is working</span></div>
+        <div class="vocab-item"><span class="no">venter</span><span class="en">is waiting</span></div>
+        <div class="vocab-item"><span class="no">holder</span><span class="en">is holding</span></div>
+        <div class="vocab-item"><span class="no">ser på</span><span class="en">is looking at</span></div>
+        <div class="vocab-item"><span class="no">handler</span><span class="en">is shopping</span></div>
+        <div class="vocab-item"><span class="no">sykler</span><span class="en">is cycling</span></div>
+        <div class="vocab-item"><span class="no">kjører</span><span class="en">is driving</span></div>
+        <div class="vocab-item"><span class="no">lager mat</span><span class="en">is cooking</span></div>
+      </div>
+
+      <div class="mini-label">Beskrive personer (describing people)</div>
+      <div class="vocab-grid">
+        <div class="vocab-item"><span class="no">en mann / en kvinne</span><span class="en">a man / a woman</span></div>
+        <div class="vocab-item"><span class="no">en gutt / en jente</span><span class="en">a boy / a girl</span></div>
+        <div class="vocab-item"><span class="no">et barn / barn (fl.)</span><span class="en">a child / children</span></div>
+        <div class="vocab-item"><span class="no">en eldre person</span><span class="en">an elderly person</span></div>
+        <div class="vocab-item"><span class="no">en ung person</span><span class="en">a young person</span></div>
+        <div class="vocab-item"><span class="no">noen / mange</span><span class="en">someone / many</span></div>
+        <div class="vocab-item"><span class="no">et par / en gruppe</span><span class="en">a couple / a group</span></div>
+        <div class="vocab-item"><span class="no">en familie</span><span class="en">a family</span></div>
+      </div>
+
+      <div class="mini-label">Steder i bildet (common places)</div>
+      <div class="vocab-grid">
+        <div class="vocab-item"><span class="no">en park</span><span class="en">a park</span></div>
+        <div class="vocab-item"><span class="no">en gate</span><span class="en">a street</span></div>
+        <div class="vocab-item"><span class="no">en butikk</span><span class="en">a shop</span></div>
+        <div class="vocab-item"><span class="no">en kafé</span><span class="en">a café</span></div>
+        <div class="vocab-item"><span class="no">et kjøkken</span><span class="en">a kitchen</span></div>
+        <div class="vocab-item"><span class="no">en stue</span><span class="en">a living room</span></div>
+        <div class="vocab-item"><span class="no">en strand</span><span class="en">a beach</span></div>
+        <div class="vocab-item"><span class="no">et kontor</span><span class="en">an office</span></div>
+        <div class="vocab-item"><span class="no">en skole</span><span class="en">a school</span></div>
+        <div class="vocab-item"><span class="no">et lekeplass</span><span class="en">a playground</span></div>
+        <div class="vocab-item"><span class="no">en restaurant</span><span class="en">a restaurant</span></div>
+        <div class="vocab-item"><span class="no">et sykehus</span><span class="en">a hospital</span></div>
+      </div>
+
+      <div class="mini-label">Gjetning og meningsfraser (speculating)</div>
+      <div class="phrase-list">
+        <div class="phrase-row"><span class="no">Jeg tror at ...</span><span class="en">I think that ...</span></div>
+        <div class="phrase-row"><span class="no">Det ser ut som ...</span><span class="en">It looks like ...</span></div>
+        <div class="phrase-row"><span class="no">Kanskje de er ...</span><span class="en">Maybe they are ...</span></div>
+        <div class="phrase-row"><span class="no">Det virker som ...</span><span class="en">It seems like ...</span></div>
+        <div class="phrase-row"><span class="no">De er sannsynligvis ...</span><span class="en">They are probably ...</span></div>
+        <div class="phrase-row"><span class="no">Det minner meg om ...</span><span class="en">It reminds me of ...</span></div>
+      </div>
+
+      <div class="mini-label">Eksempel: Fullstendig bildebeskrivelse</div>
+      <div class="example-sentence pic">
+        <span class="nor">På bildet ser jeg en park. Det er en fin sommerdag, og solen skinner.</span>
+        <span class="eng">In the picture I see a park. It's a nice summer day, and the sun is shining.</span>
+      </div>
+      <div class="example-sentence pic">
+        <span class="nor">Til venstre sitter en familie på en benk. De spiser is og ser glade ut.</span>
+        <span class="eng">To the left, a family is sitting on a bench. They're eating ice cream and look happy.</span>
+      </div>
+      <div class="example-sentence pic">
+        <span class="nor">I midten av bildet ser jeg noen barn som leker med en ball. <span class="grammar-note">som = leddsetning</span></span>
+        <span class="eng">In the middle I see some children who are playing with a ball.</span>
+      </div>
+      <div class="example-sentence pic">
+        <span class="nor">Til høyre går en kvinne med hunden sin. Hun har på seg en rød jakke. <span class="grammar-note">sin = refleksiv</span></span>
+        <span class="eng">To the right, a woman is walking with her dog. She's wearing a red jacket.</span>
+      </div>
+      <div class="example-sentence pic">
+        <span class="nor">I bakgrunnen kan jeg se noen trær og en liten innsjø.</span>
+        <span class="eng">In the background I can see some trees and a small lake.</span>
+      </div>
+      <div class="example-sentence pic">
+        <span class="nor">Jeg tror at personene koser seg fordi det er fint vær. <span class="grammar-note">fordi = subjunksjon</span></span>
+        <span class="eng">I think the people are enjoying themselves because the weather is nice.</span>
+      </div>
+      <div class="example-sentence pic">
+        <span class="nor">Bildet minner meg om sommeren i hjemlandet mitt. Vi pleide å gå i parken hver kveld. <span class="grammar-note">pleide å = used to</span></span>
+        <span class="eng">The picture reminds me of summer in my home country. We used to go to the park every evening.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- OM MEG SELV -->
+<!-- ═══════════════════════════════════════════════ -->
+<section id="meg-selv">
+  <h2>Om meg selv (Oppgave 1)</h2>
+  <p class="section-desc">Prepare a 1–2 minute self-introduction. Cover: name, origin, family, language, work/school, interests.</p>
+
+  <div class="topic-block open">
+    <div class="topic-header" onclick="toggle(this)">
+      <h3><span class="emoji">👤</span> Presentere seg selv</h3>
+      <span class="arrow">▾</span>
+    </div>
+    <div class="topic-body">
+
+      <div class="mini-label">Viktige fraser</div>
+      <div class="phrase-list">
+        <div class="phrase-row"><span class="no">Jeg heter ...</span><span class="en">My name is ...</span></div>
+        <div class="phrase-row"><span class="no">Jeg er ... år gammel.</span><span class="en">I am ... years old.</span></div>
+        <div class="phrase-row"><span class="no">Jeg kommer fra ...</span><span class="en">I come from ...</span></div>
+        <div class="phrase-row"><span class="no">Jeg er fra ...</span><span class="en">I am from ...</span></div>
+        <div class="phrase-row"><span class="no">Jeg bor i ... / Jeg bor på ...</span><span class="en">I live in ...</span></div>
+        <div class="phrase-row"><span class="no">Jeg har bodd i Norge i/siden ...</span><span class="en">I have lived in Norway for/since ...</span></div>
+        <div class="phrase-row"><span class="no">Jeg kom til Norge i ...</span><span class="en">I came to Norway in ...</span></div>
+        <div class="phrase-row"><span class="no">Jeg snakker ... og litt norsk.</span><span class="en">I speak ... and a little Norwegian.</span></div>
+        <div class="phrase-row"><span class="no">Jeg er gift / singel / skilt.</span><span class="en">I am married / single / divorced.</span></div>
+        <div class="phrase-row"><span class="no">Jeg har ... barn.</span><span class="en">I have ... children.</span></div>
+        <div class="phrase-row"><span class="no">Jeg jobber som ... / Jeg studerer ...</span><span class="en">I work as ... / I study ...</span></div>
+        <div class="phrase-row"><span class="no">På fritida mi liker jeg å ...</span><span class="en">In my free time I like to ...</span></div>
+      </div>
+
+      <div class="mini-label">Eksempelsetninger (varied grammar)</div>
+      <div class="example-sentence">
+        <span class="nor">Jeg heter Maria og er 32 år gammel. Jeg kommer fra Polen, men nå bor jeg i Tromsø. <span class="grammar-note">men = konjunksjon</span></span>
+        <span class="eng">My name is Maria and I'm 32 years old. I come from Poland, but now I live in Tromsø.</span>
+      </div>
+      <div class="example-sentence">
+        <span class="nor">Jeg kom til Norge for tre år siden fordi mannen min fikk jobb her. <span class="grammar-note">for...siden = ago</span></span>
+        <span class="eng">I came to Norway three years ago because my husband got a job here.</span>
+      </div>
+      <div class="example-sentence">
+        <span class="nor">Jeg har to barn. Den eldste er åtte år, og den yngste er fem. De går på skolen i nærheten. <span class="grammar-note">eldste/yngste = superlativ</span></span>
+        <span class="eng">I have two children. The oldest is eight, and the youngest is five. They go to the school nearby.</span>
+      </div>
+      <div class="example-sentence">
+        <span class="nor">Nå jobber jeg deltid i en barnehage, men før jobbet jeg som lærer i hjemlandet mitt. <span class="grammar-note">inversjon: Nå + verb + subjekt</span></span>
+        <span class="eng">Now I work part-time in a kindergarten, but before I worked as a teacher in my home country.</span>
+      </div>
+      <div class="example-sentence">
+        <span class="nor">På fritida mi liker jeg å lese bøker og gå på tur i naturen. Dessuten liker jeg å lage mat. <span class="grammar-note">dessuten = besides</span></span>
+        <span class="eng">In my free time I like to read books and go hiking in nature. I also like to cook.</span>
+      </div>
+      <div class="example-sentence">
+        <span class="nor">Jeg skal ta norskprøven fordi jeg vil få en bedre jobb. Jeg håper å bestå! <span class="grammar-note">skal + infinitiv = futurum</span></span>
+        <span class="eng">I'm going to take the Norwegian exam because I want to get a better job. I hope to pass!</span>
+      </div>
+
+      <div class="tip-box">
+        <strong>A2-strategi:</strong> Mix tenses! Use present (nå bor jeg), past (jeg kom til Norge), perfect (jeg har bodd her), and future (jeg skal...) to show range.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- FAMILIE -->
+<!-- ═══════════════════════════════════════════════ -->
+<section id="familie">
+  <h2>Familie</h2>
+  <p class="section-desc">One of the most common topics. Know family vocabulary and be able to describe relationships.</p>
+
+  <div class="topic-block open">
+    <div class="topic-header" onclick="toggle(this)">
+      <h3><span class="emoji">👨‍👩‍👧‍👦</span> Familie & relasjoner</h3>
+      <span class="arrow">▾</span>
+    </div>
+    <div class="topic-body">
+      <div class="mini-label">Ordforråd</div>
+      <div class="vocab-grid">
+        <div class="vocab-item"><span class="no">en mor / en far</span><span class="en">mother / father</span></div>
+        <div class="vocab-item"><span class="no">foreldre</span><span class="en">parents</span></div>
+        <div class="vocab-item"><span class="no">en sønn / en datter</span><span class="en">son / daughter</span></div>
+        <div class="vocab-item"><span class="no">et barn / barn (fl.)</span><span class="en">child / children</span></div>
+        <div class="vocab-item"><span class="no">en bror / en søster</span><span class="en">brother / sister</span></div>
+        <div class="vocab-item"><span class="no">søsken</span><span class="en">siblings</span></div>
+        <div class="vocab-item"><span class="no">en bestemor / en bestefar</span><span class="en">grandmother / grandfather</span></div>
+        <div class="vocab-item"><span class="no">besteforeldre</span><span class="en">grandparents</span></div>
+        <div class="vocab-item"><span class="no">en onkel / en tante</span><span class="en">uncle / aunt</span></div>
+        <div class="vocab-item"><span class="no">en fetter / en kusine</span><span class="en">male cousin / female cousin</span></div>
+        <div class="vocab-item"><span class="no">en mann / en kone</span><span class="en">husband / wife</span></div>
+        <div class="vocab-item"><span class="no">en kjæreste</span><span class="en">boyfriend / girlfriend</span></div>
+        <div class="vocab-item"><span class="no">en nabo</span><span class="en">neighbor</span></div>
+        <div class="vocab-item"><span class="no">en venn / en venninne</span><span class="en">male friend / female friend</span></div>
+        <div class="vocab-item"><span class="no">gift / ugift / skilt</span><span class="en">married / unmarried / divorced</span></div>
+        <div class="vocab-item"><span class="no">samboer</span><span class="en">live-in partner</span></div>
+      </div>
+
+      <div class="mini-label">Eksempelsetninger</div>
+      <div class="example-sentence">
+        <span class="nor">Familien min er ganske stor. Jeg har tre søsken – to brødre og en søster.</span>
+        <span class="eng">My family is quite big. I have three siblings – two brothers and one sister.</span>
+      </div>
+      <div class="example-sentence">
+        <span class="nor">Foreldrene mine bor i hjemlandet mitt. Jeg savner dem, men vi snakker sammen på telefon hver uke. <span class="grammar-note">dem = objektform</span></span>
+        <span class="eng">My parents live in my home country. I miss them, but we talk on the phone every week.</span>
+      </div>
+      <div class="example-sentence">
+        <span class="nor">Broren min er eldre enn meg. Han er gift og har et lite barn. <span class="grammar-note">eldre enn = komparativ</span></span>
+        <span class="eng">My brother is older than me. He's married and has a small child.</span>
+      </div>
+      <div class="example-sentence">
+        <span class="nor">Dattera mi går i barnehagen. Hun liker å leke med de andre barna der. <span class="grammar-note">de andre barna = bestemt fl.</span></span>
+        <span class="eng">My daughter goes to kindergarten. She likes to play with the other children there.</span>
+      </div>
+      <div class="example-sentence">
+        <span class="nor">Når hele familien er samlet, pleier vi å lage mat og spise sammen. Det er veldig koselig! <span class="grammar-note">når = subjunksjon</span></span>
+        <span class="eng">When the whole family is gathered, we usually cook and eat together. It's very cozy!</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- JOBB & UTDANNING -->
+<!-- ═══════════════════════════════════════════════ -->
+<section id="jobb">
+  <h2>Jobb & utdanning</h2>
+  <p class="section-desc">Very likely to come up. Describe your work, education, and future plans.</p>
+
+  <div class="topic-block open">
+    <div class="topic-header" onclick="toggle(this)">
+      <h3><span class="emoji">💼</span> Arbeid og skole</h3>
+      <span class="arrow">▾</span>
+    </div>
+    <div class="topic-body">
+      <div class="mini-label">Ordforråd – Yrker (jobs)</div>
+      <div class="vocab-grid">
+        <div class="vocab-item"><span class="no">en lærer</span><span class="en">teacher</span></div>
+        <div class="vocab-item"><span class="no">en lege / en sykepleier</span><span class="en">doctor / nurse</span></div>
+        <div class="vocab-item"><span class="no">en ingeniør</span><span class="en">engineer</span></div>
+        <div class="vocab-item"><span class="no">en kokk</span><span class="en">cook/chef</span></div>
+        <div class="vocab-item"><span class="no">en sjåfør</span><span class="en">driver</span></div>
+        <div class="vocab-item"><span class="no">en butikkansatt</span><span class="en">shop worker</span></div>
+        <div class="vocab-item"><span class="no">en rengjører</span><span class="en">cleaner</span></div>
+        <div class="vocab-item"><span class="no">en frisør</span><span class="en">hairdresser</span></div>
+        <div class="vocab-item"><span class="no">en student</span><span class="en">student</span></div>
+        <div class="vocab-item"><span class="no">en regnskapsfører</span><span class="en">accountant</span></div>
+        <div class="vocab-item"><span class="no">en elektriker</span><span class="en">electrician</span></div>
+        <div class="vocab-item"><span class="no">en snekker</span><span class="en">carpenter</span></div>
+      </div>
+
+      <div class="mini-label">Ordforråd – Arbeidsliv</div>
+      <div class="vocab-grid">
+        <div class="vocab-item"><span class="no">en jobb / et arbeid</span><span class="en">a job / work</span></div>
+        <div class="vocab-item"><span class="no">et kontor</span><span class="en">an office</span></div>
+        <div class="vocab-item"><span class="no">en arbeidsgiver</span><span class="en">employer</span></div>
+        <div class="vocab-item"><span class="no">en kollega</span><span class="en">colleague</span></div>
+        <div class="vocab-item"><span class="no">en lønn</span><span class="en">salary</span></div>
+        <div class="vocab-item"><span class="no">heltid / deltid</span><span class="en">full-time / part-time</span></div>
+        <div class="vocab-item"><span class="no">en praksis</span><span class="en">internship</span></div>
+        <div class="vocab-item"><span class="no">å søke jobb</span><span class="en">to apply for a job</span></div>
+        <div class="vocab-item"><span class="no">en utdanning</span><span class="en">education</span></div>
+        <div class="vocab-item"><span class="no">en skole / et kurs</span><span class="en">school / course</span></div>
+        <div class="vocab-item"><span class="no">norskkurs</span><span class="en">Norwegian course</span></div>
+        <div class="vocab-item"><span class="no">å lære / å studere</span><span class="en">to learn / to study</span></div>
+      </div>
+
+      <div class="mini-label">Eksempelsetninger</div>
+      <div class="example-sentence">
+        <span class="nor">Jeg jobber som rengjører på et hotell. Jeg har jobbet der i ett år. <span class="grammar-note">perfektum + i</span></span>
+        <span class="eng">I work as a cleaner at a hotel. I have worked there for one year.</span>
+      </div>
+      <div class="example-sentence">
+        <span class="nor">I hjemlandet mitt var jeg ingeniør, men her i Norge må jeg ta norskprøven først. <span class="grammar-note">preteritum + modalverb</span></span>
+        <span class="eng">In my home country I was an engineer, but here in Norway I have to take the Norwegian exam first.</span>
+      </div>
+      <div class="example-sentence">
+        <span class="nor">Nå går jeg på norskkurs fire dager i uka. Kurset er veldig nyttig fordi jeg lærer mye. <span class="grammar-note">inversjon: Nå + verb</span></span>
+        <span class="eng">Now I attend a Norwegian course four days a week. The course is very useful because I learn a lot.</span>
+      </div>
+      <div class="example-sentence">
+        <span class="nor">Etter at jeg har bestått norskprøven, skal jeg søke jobb som lærerassistent. <span class="grammar-note">etter at = after</span></span>
+        <span class="eng">After I pass the Norwegian exam, I'm going to apply for a job as a teaching assistant.</span>
+      </div>
+      <div class="example-sentence">
+        <span class="nor">Det er viktig å ha en god utdanning hvis man vil få en bra jobb i Norge. <span class="grammar-note">hvis = if</span></span>
+        <span class="eng">It's important to have a good education if you want to get a good job in Norway.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- FRITID -->
+<!-- ═══════════════════════════════════════════════ -->
+<section id="fritid">
+  <h2>Fritid & hobby</h2>
+  <p class="section-desc">Talk about what you enjoy doing, sports, hobbies, and how you spend weekends.</p>
+
+  <div class="topic-block">
+    <div class="topic-header" onclick="toggle(this)">
+      <h3><span class="emoji">⚽</span> Fritidsaktiviteter</h3>
+      <span class="arrow">▾</span>
+    </div>
+    <div class="topic-body">
+      <div class="mini-label">Ordforråd</div>
+      <div class="vocab-grid">
+        <div class="vocab-item"><span class="no">å trene / å mosjonere</span><span class="en">to work out / exercise</span></div>
+        <div class="vocab-item"><span class="no">å gå på tur / å gå tur</span><span class="en">to go hiking</span></div>
+        <div class="vocab-item"><span class="no">å lese</span><span class="en">to read</span></div>
+        <div class="vocab-item"><span class="no">å se på TV / film</span><span class="en">to watch TV / movies</span></div>
+        <div class="vocab-item"><span class="no">å spille fotball</span><span class="en">to play football</span></div>
+        <div class="vocab-item"><span class="no">å svømme</span><span class="en">to swim</span></div>
+        <div class="vocab-item"><span class="no">å sykle</span><span class="en">to cycle</span></div>
+        <div class="vocab-item"><span class="no">å stå på ski</span><span class="en">to ski</span></div>
+        <div class="vocab-item"><span class="no">å lage mat</span><span class="en">to cook</span></div>
+        <div class="vocab-item"><span class="no">å høre på musikk</span><span class="en">to listen to music</span></div>
+        <div class="vocab-item"><span class="no">å tegne / å male</span><span class="en">to draw / to paint</span></div>
+        <div class="vocab-item"><span class="no">å reise</span><span class="en">to travel</span></div>
+        <div class="vocab-item"><span class="no">å spille dataspill</span><span class="en">to play video games</span></div>
+        <div class="vocab-item"><span class="no">å besøke venner</span><span class="en">to visit friends</span></div>
+        <div class="vocab-item"><span class="no">å gå på kino</span><span class="en">to go to the cinema</span></div>
+        <div class="vocab-item"><span class="no">å handle / å shoppe</span><span class="en">to shop</span></div>
+      </div>
+
+      <div class="mini-label">Nyttige fraser</div>
+      <div class="phrase-list">
+        <div class="phrase-row"><span class="no">Jeg liker å ... / Jeg elsker å ...</span><span class="en">I like to ... / I love to ...</span></div>
+        <div class="phrase-row"><span class="no">Jeg liker ikke å ...</span><span class="en">I don't like to ...</span></div>
+        <div class="phrase-row"><span class="no">Jeg er interessert i ...</span><span class="en">I'm interested in ...</span></div>
+        <div class="phrase-row"><span class="no">Hobbyen min er ...</span><span class="en">My hobby is ...</span></div>
+        <div class="phrase-row"><span class="no">Jeg pleier å ... i helgene.</span><span class="en">I usually ... on weekends.</span></div>
+        <div class="phrase-row"><span class="no">Av og til ...</span><span class="en">Sometimes ...</span></div>
+        <div class="phrase-row"><span class="no">Det er gøy / morsomt å ...</span><span class="en">It's fun to ...</span></div>
+      </div>
+
+      <div class="mini-label">Eksempelsetninger</div>
+      <div class="example-sentence">
+        <span class="nor">Jeg liker å gå på tur i naturen. Hver helg går vi en lang tur i fjellet. <span class="grammar-note">hver = every</span></span>
+        <span class="eng">I like to go hiking in nature. Every weekend we go for a long walk in the mountains.</span>
+      </div>
+      <div class="example-sentence">
+        <span class="nor">Om vinteren liker jeg å stå på ski, men om sommeren foretrekker jeg å svømme. <span class="grammar-note">om vinteren/sommeren</span></span>
+        <span class="eng">In winter I like to ski, but in summer I prefer to swim.</span>
+      </div>
+      <div class="example-sentence">
+        <span class="nor">I går kveld så vi på en norsk film. Den var veldig morsom! <span class="grammar-note">preteritum: så = saw</span></span>
+        <span class="eng">Yesterday evening we watched a Norwegian film. It was very funny!</span>
+      </div>
+      <div class="example-sentence">
+        <span class="nor">Jeg pleier å trene tre ganger i uka. Det er viktig å holde seg i form, synes jeg. <span class="grammar-note">pleier å = usually</span></span>
+        <span class="eng">I usually work out three times a week. It's important to stay in shape, I think.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- MAT & HELSE -->
+<!-- ═══════════════════════════════════════════════ -->
+<section id="mat">
+  <h2>Mat & helse</h2>
+  <p class="section-desc">Food and meals are very common exam topics. Also covers health basics.</p>
+
+  <div class="topic-block">
+    <div class="topic-header" onclick="toggle(this)">
+      <h3><span class="emoji">🍽️</span> Mat, måltider og helse</h3>
+      <span class="arrow">▾</span>
+    </div>
+    <div class="topic-body">
+      <div class="mini-label">Ordforråd – Mat</div>
+      <div class="vocab-grid">
+        <div class="vocab-item"><span class="no">brød / brødskive</span><span class="en">bread / slice of bread</span></div>
+        <div class="vocab-item"><span class="no">ost / smør</span><span class="en">cheese / butter</span></div>
+        <div class="vocab-item"><span class="no">melk / juice / vann</span><span class="en">milk / juice / water</span></div>
+        <div class="vocab-item"><span class="no">kaffe / te</span><span class="en">coffee / tea</span></div>
+        <div class="vocab-item"><span class="no">kjøtt / kylling / fisk</span><span class="en">meat / chicken / fish</span></div>
+        <div class="vocab-item"><span class="no">grønnsaker / frukt</span><span class="en">vegetables / fruit</span></div>
+        <div class="vocab-item"><span class="no">ris / pasta / poteter</span><span class="en">rice / pasta / potatoes</span></div>
+        <div class="vocab-item"><span class="no">egg / salat</span><span class="en">eggs / salad</span></div>
+        <div class="vocab-item"><span class="no">suppe / pizza</span><span class="en">soup / pizza</span></div>
+        <div class="vocab-item"><span class="no">kake / sjokolade / is</span><span class="en">cake / chocolate / ice cream</span></div>
+      </div>
+
+      <div class="mini-label">Ordforråd – Måltider & helse</div>
+      <div class="vocab-grid">
+        <div class="vocab-item"><span class="no">frokost</span><span class="en">breakfast</span></div>
+        <div class="vocab-item"><span class="no">lunsj</span><span class="en">lunch</span></div>
+        <div class="vocab-item"><span class="no">middag / kveldsmat</span><span class="en">dinner / evening meal</span></div>
+        <div class="vocab-item"><span class="no">sunn / usunn</span><span class="en">healthy / unhealthy</span></div>
+        <div class="vocab-item"><span class="no">å være syk</span><span class="en">to be sick</span></div>
+        <div class="vocab-item"><span class="no">en fastlege</span><span class="en">GP / family doctor</span></div>
+        <div class="vocab-item"><span class="no">en time (hos legen)</span><span class="en">appointment</span></div>
+        <div class="vocab-item"><span class="no">medisin</span><span class="en">medicine</span></div>
+        <div class="vocab-item"><span class="no">hodepine / vondt i ...</span><span class="en">headache / pain in ...</span></div>
+        <div class="vocab-item"><span class="no">å trene / å mosjonere</span><span class="en">to exercise</span></div>
+      </div>
+
+      <div class="mini-label">Eksempelsetninger</div>
+      <div class="example-sentence">
+        <span class="nor">Til frokost pleier jeg å spise brødskiver med ost og drikke kaffe. <span class="grammar-note">til frokost = for breakfast</span></span>
+        <span class="eng">For breakfast I usually eat bread with cheese and drink coffee.</span>
+      </div>
+      <div class="example-sentence">
+        <span class="nor">Favorittmaten min er biryani. Den er veldig populær i hjemlandet mitt, og jeg lager den ofte hjemme.</span>
+        <span class="eng">My favorite food is biryani. It's very popular in my home country, and I make it often at home.</span>
+      </div>
+      <div class="example-sentence">
+        <span class="nor">Norsk mat er ganske forskjellig fra maten i landet mitt. For eksempel spiser nordmenn mye fisk og brød. <span class="grammar-note">for eksempel = for example</span></span>
+        <span class="eng">Norwegian food is quite different from the food in my country. For example, Norwegians eat a lot of fish and bread.</span>
+      </div>
+      <div class="example-sentence">
+        <span class="nor">Jeg prøver å spise sunt, men noen ganger spiser jeg usunt også. Det er vanskelig å alltid velge riktig mat! <span class="grammar-note">noen ganger = sometimes</span></span>
+        <span class="eng">I try to eat healthily, but sometimes I eat unhealthily too. It's hard to always choose the right food!</span>
+      </div>
+      <div class="example-sentence">
+        <span class="nor">Forrige uke var jeg syk og gikk til legen. Legen sa at jeg måtte hvile og drikke mye vann. <span class="grammar-note">preteritum: var, gikk, sa, måtte</span></span>
+        <span class="eng">Last week I was sick and went to the doctor. The doctor said I had to rest and drink lots of water.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- BOLIG -->
+<!-- ═══════════════════════════════════════════════ -->
+<section id="bolig">
+  <h2>Bolig & hjem</h2>
+  <p class="section-desc">Where and how you live — your home, neighborhood, and what you like about it.</p>
+
+  <div class="topic-block">
+    <div class="topic-header" onclick="toggle(this)">
+      <h3><span class="emoji">🏠</span> Bolig, rom og nabolag</h3>
+      <span class="arrow">▾</span>
+    </div>
+    <div class="topic-body">
+      <div class="mini-label">Ordforråd</div>
+      <div class="vocab-grid">
+        <div class="vocab-item"><span class="no">et hus / en leilighet</span><span class="en">house / apartment</span></div>
+        <div class="vocab-item"><span class="no">et kjøkken</span><span class="en">kitchen</span></div>
+        <div class="vocab-item"><span class="no">en stue</span><span class="en">living room</span></div>
+        <div class="vocab-item"><span class="no">et soverom</span><span class="en">bedroom</span></div>
+        <div class="vocab-item"><span class="no">et bad / et baderom</span><span class="en">bathroom</span></div>
+        <div class="vocab-item"><span class="no">en gang / en entré</span><span class="en">hallway / entrance</span></div>
+        <div class="vocab-item"><span class="no">en hage / en balkong</span><span class="en">garden / balcony</span></div>
+        <div class="vocab-item"><span class="no">en etasje</span><span class="en">floor / story</span></div>
+        <div class="vocab-item"><span class="no">å leie / å eie</span><span class="en">to rent / to own</span></div>
+        <div class="vocab-item"><span class="no">en husleie</span><span class="en">rent</span></div>
+        <div class="vocab-item"><span class="no">et nabolag</span><span class="en">neighborhood</span></div>
+        <div class="vocab-item"><span class="no">i nærheten av</span><span class="en">near / close to</span></div>
+      </div>
+
+      <div class="mini-label">Eksempelsetninger</div>
+      <div class="example-sentence">
+        <span class="nor">Jeg bor i en liten leilighet i sentrum. Den har to soverom, en stue og et kjøkken.</span>
+        <span class="eng">I live in a small apartment in the center. It has two bedrooms, a living room, and a kitchen.</span>
+      </div>
+      <div class="example-sentence">
+        <span class="nor">Vi leier leiligheten, men vi vil gjerne kjøpe et hus en dag. <span class="grammar-note">vil gjerne = would like to</span></span>
+        <span class="eng">We rent the apartment, but we'd like to buy a house one day.</span>
+      </div>
+      <div class="example-sentence">
+        <span class="nor">Nabolaget vårt er rolig og trygt. Det er en butikk og en barnehage i nærheten. <span class="grammar-note">vårt = our (et-ord)</span></span>
+        <span class="eng">Our neighborhood is quiet and safe. There's a shop and a kindergarten nearby.</span>
+      </div>
+      <div class="example-sentence">
+        <span class="nor">Selv om leiligheten er liten, liker jeg den fordi den er lys og har en fin balkong. <span class="grammar-note">selv om = even though</span></span>
+        <span class="eng">Even though the apartment is small, I like it because it's bright and has a nice balcony.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- VÆR -->
+<!-- ═══════════════════════════════════════════════ -->
+<section id="vaer">
+  <h2>Vær & årstider</h2>
+  <p class="section-desc">Weather is a classic Norwegian conversation topic. Perfect for picture descriptions too.</p>
+
+  <div class="topic-block">
+    <div class="topic-header" onclick="toggle(this)">
+      <h3><span class="emoji">🌦️</span> Vær, klima og årstider</h3>
+      <span class="arrow">▾</span>
+    </div>
+    <div class="topic-body">
+      <div class="mini-label">Ordforråd</div>
+      <div class="vocab-grid">
+        <div class="vocab-item"><span class="no">solen skinner</span><span class="en">the sun is shining</span></div>
+        <div class="vocab-item"><span class="no">det regner</span><span class="en">it's raining</span></div>
+        <div class="vocab-item"><span class="no">det snør</span><span class="en">it's snowing</span></div>
+        <div class="vocab-item"><span class="no">det blåser</span><span class="en">it's windy</span></div>
+        <div class="vocab-item"><span class="no">det er kaldt / varmt</span><span class="en">it's cold / warm</span></div>
+        <div class="vocab-item"><span class="no">det er overskyet</span><span class="en">it's cloudy</span></div>
+        <div class="vocab-item"><span class="no">det er fint vær</span><span class="en">it's nice weather</span></div>
+        <div class="vocab-item"><span class="no">det er dårlig vær</span><span class="en">it's bad weather</span></div>
+        <div class="vocab-item"><span class="no">en grad / minus</span><span class="en">a degree / below zero</span></div>
+        <div class="vocab-item"><span class="no">vår / sommer</span><span class="en">spring / summer</span></div>
+        <div class="vocab-item"><span class="no">høst / vinter</span><span class="en">autumn / winter</span></div>
+        <div class="vocab-item"><span class="no">mørketid / midnattssol</span><span class="en">dark season / midnight sun</span></div>
+      </div>
+
+      <div class="mini-label">Eksempelsetninger</div>
+      <div class="example-sentence">
+        <span class="nor">I Norge er det fire årstider: vår, sommer, høst og vinter. Vinteren er lang og kald, spesielt i Nord-Norge.</span>
+        <span class="eng">In Norway there are four seasons: spring, summer, autumn, and winter. Winter is long and cold, especially in northern Norway.</span>
+      </div>
+      <div class="example-sentence">
+        <span class="nor">I dag er det kaldt og det snør. Det er minus ti grader ute! <span class="grammar-note">upersonlig «det»</span></span>
+        <span class="eng">Today it's cold and it's snowing. It's minus ten degrees outside!</span>
+      </div>
+      <div class="example-sentence">
+        <span class="nor">Om sommeren er det lyst hele døgnet i Tromsø. Det heter midnattssol, og det er veldig spesielt. <span class="grammar-note">det heter = it is called</span></span>
+        <span class="eng">In summer it's light around the clock in Tromsø. It's called the midnight sun, and it's very special.</span>
+      </div>
+      <div class="example-sentence">
+        <span class="nor">Når det er fint vær, liker jeg å gå tur. Men hvis det regner, foretrekker jeg å være inne. <span class="grammar-note">når + hvis</span></span>
+        <span class="eng">When the weather is nice, I like to go for a walk. But if it rains, I prefer to stay inside.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- DAGLIGLIV -->
+<!-- ═══════════════════════════════════════════════ -->
+<section id="dagligliv">
+  <h2>Daglig rutine</h2>
+  <p class="section-desc">Describe your typical day — from morning to evening.</p>
+
+  <div class="topic-block">
+    <div class="topic-header" onclick="toggle(this)">
+      <h3><span class="emoji">🕐</span> En vanlig dag</h3>
+      <span class="arrow">▾</span>
+    </div>
+    <div class="topic-body">
+      <div class="mini-label">Ordforråd</div>
+      <div class="vocab-grid">
+        <div class="vocab-item"><span class="no">å våkne / å stå opp</span><span class="en">to wake up / to get up</span></div>
+        <div class="vocab-item"><span class="no">å dusje</span><span class="en">to shower</span></div>
+        <div class="vocab-item"><span class="no">å kle på seg</span><span class="en">to get dressed</span></div>
+        <div class="vocab-item"><span class="no">å spise frokost</span><span class="en">to eat breakfast</span></div>
+        <div class="vocab-item"><span class="no">å levere i barnehagen</span><span class="en">to drop off at kindergarten</span></div>
+        <div class="vocab-item"><span class="no">å ta bussen</span><span class="en">to take the bus</span></div>
+        <div class="vocab-item"><span class="no">å begynne på jobb</span><span class="en">to start work</span></div>
+        <div class="vocab-item"><span class="no">å ha pause</span><span class="en">to have a break</span></div>
+        <div class="vocab-item"><span class="no">å hente barna</span><span class="en">to pick up the kids</span></div>
+        <div class="vocab-item"><span class="no">å handle mat</span><span class="en">to buy groceries</span></div>
+        <div class="vocab-item"><span class="no">å rydde / vaske</span><span class="en">to tidy / to clean</span></div>
+        <div class="vocab-item"><span class="no">å legge seg</span><span class="en">to go to bed</span></div>
+      </div>
+
+      <div class="mini-label">Tidsuttrykk (time expressions)</div>
+      <div class="phrase-list">
+        <div class="phrase-row"><span class="no">om morgenen / om kvelden</span><span class="en">in the morning / in the evening</span></div>
+        <div class="phrase-row"><span class="no">først ... så ... deretter ... til slutt</span><span class="en">first ... then ... after that ... finally</span></div>
+        <div class="phrase-row"><span class="no">klokka sju / halv åtte</span><span class="en">at seven / at half past seven</span></div>
+        <div class="phrase-row"><span class="no">hver dag / hver morgen</span><span class="en">every day / every morning</span></div>
+        <div class="phrase-row"><span class="no">som regel / vanligvis</span><span class="en">as a rule / usually</span></div>
+        <div class="phrase-row"><span class="no">etter jobb / etter middag</span><span class="en">after work / after dinner</span></div>
+      </div>
+
+      <div class="mini-label">Eksempelsetninger</div>
+      <div class="example-sentence">
+        <span class="nor">Jeg står opp klokka seks hver morgen. Først dusjer jeg, og så spiser jeg frokost. <span class="grammar-note">først ... og så</span></span>
+        <span class="eng">I get up at six every morning. First I shower, and then I eat breakfast.</span>
+      </div>
+      <div class="example-sentence">
+        <span class="nor">Deretter leverer jeg barna i barnehagen og tar bussen til jobb. Jeg begynner på jobb klokka åtte. <span class="grammar-note">inversjon: Deretter + verb</span></span>
+        <span class="eng">After that I drop the kids off at kindergarten and take the bus to work. I start work at eight.</span>
+      </div>
+      <div class="example-sentence">
+        <span class="nor">Etter jobb handler jeg mat og lager middag. Om kvelden leser jeg eller ser på TV før jeg legger meg. <span class="grammar-note">før = before</span></span>
+        <span class="eng">After work I buy groceries and make dinner. In the evening I read or watch TV before going to bed.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- REISE & TRANSPORT -->
+<!-- ═══════════════════════════════════════════════ -->
+<section id="reise">
+  <h2>Reise & transport</h2>
+  <p class="section-desc">Travel experiences, getting around, and future travel plans.</p>
+
+  <div class="topic-block">
+    <div class="topic-header" onclick="toggle(this)">
+      <h3><span class="emoji">🚌</span> Reise og transport</h3>
+      <span class="arrow">▾</span>
+    </div>
+    <div class="topic-body">
+      <div class="mini-label">Ordforråd</div>
+      <div class="vocab-grid">
+        <div class="vocab-item"><span class="no">en buss / en trikk</span><span class="en">bus / tram</span></div>
+        <div class="vocab-item"><span class="no">et tog / et fly</span><span class="en">train / plane</span></div>
+        <div class="vocab-item"><span class="no">en bil / en sykkel</span><span class="en">car / bicycle</span></div>
+        <div class="vocab-item"><span class="no">en båt / en ferge</span><span class="en">boat / ferry</span></div>
+        <div class="vocab-item"><span class="no">en billett / et busskort</span><span class="en">ticket / bus pass</span></div>
+        <div class="vocab-item"><span class="no">en holdeplass / en stasjon</span><span class="en">stop / station</span></div>
+        <div class="vocab-item"><span class="no">en flyplass</span><span class="en">airport</span></div>
+        <div class="vocab-item"><span class="no">å reise / å flytte</span><span class="en">to travel / to move</span></div>
+        <div class="vocab-item"><span class="no">å kjøre bil</span><span class="en">to drive a car</span></div>
+        <div class="vocab-item"><span class="no">en ferie / en tur</span><span class="en">holiday / trip</span></div>
+        <div class="vocab-item"><span class="no">et hotell / et gjestehus</span><span class="en">hotel / guesthouse</span></div>
+        <div class="vocab-item"><span class="no">å bestille</span><span class="en">to book / order</span></div>
+      </div>
+
+      <div class="mini-label">Eksempelsetninger</div>
+      <div class="example-sentence">
+        <span class="nor">Jeg tar bussen til jobb hver dag. Bussen kommer hvert kvarter, og turen tar tjue minutter. <span class="grammar-note">hvert = every (et-ord)</span></span>
+        <span class="eng">I take the bus to work every day. The bus comes every fifteen minutes, and the trip takes twenty minutes.</span>
+      </div>
+      <div class="example-sentence">
+        <span class="nor">I fjor reiste vi til Bergen med toget. Det var en veldig fin tur med flotte fjorder og fjell. <span class="grammar-note">i fjor = last year</span></span>
+        <span class="eng">Last year we traveled to Bergen by train. It was a very nice trip with beautiful fjords and mountains.</span>
+      </div>
+      <div class="example-sentence">
+        <span class="nor">Neste sommer skal vi reise til hjemlandet mitt. Vi har ikke vært der på to år, og barna gleder seg! <span class="grammar-note">gleder seg = look forward to</span></span>
+        <span class="eng">Next summer we're going to travel to my home country. We haven't been there in two years, and the kids are excited!</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- HANDLING & KLÆR -->
+<!-- ═══════════════════════════════════════════════ -->
+<section id="handling">
+  <h2>Handling & klær</h2>
+  <p class="section-desc">Shopping, clothes, and describing what people wear — useful for picture descriptions!</p>
+
+  <div class="topic-block">
+    <div class="topic-header" onclick="toggle(this)">
+      <h3><span class="emoji">🛒</span> Butikk og klær</h3>
+      <span class="arrow">▾</span>
+    </div>
+    <div class="topic-body">
+      <div class="mini-label">Ordforråd – Klær (useful for Oppgave 2!)</div>
+      <div class="vocab-grid">
+        <div class="vocab-item"><span class="no">en jakke</span><span class="en">jacket</span></div>
+        <div class="vocab-item"><span class="no">en genser</span><span class="en">sweater</span></div>
+        <div class="vocab-item"><span class="no">en t-skjorte</span><span class="en">t-shirt</span></div>
+        <div class="vocab-item"><span class="no">en bukse</span><span class="en">trousers</span></div>
+        <div class="vocab-item"><span class="no">en kjole</span><span class="en">dress</span></div>
+        <div class="vocab-item"><span class="no">en skjorte</span><span class="en">shirt</span></div>
+        <div class="vocab-item"><span class="no">sko / støvler</span><span class="en">shoes / boots</span></div>
+        <div class="vocab-item"><span class="no">en lue / et skjerf</span><span class="en">beanie / scarf</span></div>
+        <div class="vocab-item"><span class="no">hansker</span><span class="en">gloves</span></div>
+        <div class="vocab-item"><span class="no">en veske / en ryggsekk</span><span class="en">bag / backpack</span></div>
+      </div>
+
+      <div class="mini-label">Farger (colors — essential for pictures!)</div>
+      <div class="vocab-grid">
+        <div class="vocab-item"><span class="no">rød / blå / grønn</span><span class="en">red / blue / green</span></div>
+        <div class="vocab-item"><span class="no">gul / hvit / svart</span><span class="en">yellow / white / black</span></div>
+        <div class="vocab-item"><span class="no">grå / brun / rosa</span><span class="en">grey / brown / pink</span></div>
+        <div class="vocab-item"><span class="no">lys / mørk</span><span class="en">light / dark</span></div>
+      </div>
+
+      <div class="mini-label">Nyttige fraser</div>
+      <div class="phrase-list">
+        <div class="phrase-row"><span class="no">Han/Hun har på seg ...</span><span class="en">He/She is wearing ...</span></div>
+        <div class="phrase-row"><span class="no">Han er kledd i ...</span><span class="en">He is dressed in ...</span></div>
+        <div class="phrase-row"><span class="no">Hvor mye koster det?</span><span class="en">How much does it cost?</span></div>
+        <div class="phrase-row"><span class="no">Det er på tilbud / på salg.</span><span class="en">It's on offer / on sale.</span></div>
+        <div class="phrase-row"><span class="no">Kan jeg betale med kort?</span><span class="en">Can I pay by card?</span></div>
+      </div>
+
+      <div class="example-sentence">
+        <span class="nor">Mannen har på seg en blå jakke og svarte bukser. Han holder en handlepose. <span class="grammar-note">har på seg = is wearing</span></span>
+        <span class="eng">The man is wearing a blue jacket and black trousers. He's holding a shopping bag.</span>
+      </div>
+      <div class="example-sentence">
+        <span class="nor">Jeg handler vanligvis mat på Rema 1000 fordi det er billigst der. <span class="grammar-note">billigst = superlativ</span></span>
+        <span class="eng">I usually buy groceries at Rema 1000 because it's cheapest there.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- LIVET I NORGE -->
+<!-- ═══════════════════════════════════════════════ -->
+<section id="norge">
+  <h2>Livet i Norge</h2>
+  <p class="section-desc">Comparing life in Norway vs. your home country is a very common exam topic.</p>
+
+  <div class="topic-block">
+    <div class="topic-header" onclick="toggle(this)">
+      <h3><span class="emoji">🇳🇴</span> Norge, kultur og integrering</h3>
+      <span class="arrow">▾</span>
+    </div>
+    <div class="topic-body">
+      <div class="mini-label">Ordforråd</div>
+      <div class="vocab-grid">
+        <div class="vocab-item"><span class="no">et hjemland</span><span class="en">home country</span></div>
+        <div class="vocab-item"><span class="no">en innvandrer</span><span class="en">immigrant</span></div>
+        <div class="vocab-item"><span class="no">integrering</span><span class="en">integration</span></div>
+        <div class="vocab-item"><span class="no">en tradisjon</span><span class="en">tradition</span></div>
+        <div class="vocab-item"><span class="no">en høytid / en feiring</span><span class="en">holiday / celebration</span></div>
+        <div class="vocab-item"><span class="no">17. mai / jul / påske</span><span class="en">May 17th / Christmas / Easter</span></div>
+        <div class="vocab-item"><span class="no">dugnad</span><span class="en">voluntary communal work</span></div>
+        <div class="vocab-item"><span class="no">friluftsliv</span><span class="en">outdoor life</span></div>
+        <div class="vocab-item"><span class="no">likestilling</span><span class="en">equality</span></div>
+        <div class="vocab-item"><span class="no">barnehage / skole</span><span class="en">kindergarten / school</span></div>
+        <div class="vocab-item"><span class="no">trygg / sikker</span><span class="en">safe / secure</span></div>
+        <div class="vocab-item"><span class="no">forskjellig / lik</span><span class="en">different / similar</span></div>
+      </div>
+
+      <div class="mini-label">Nyttige fraser for å sammenligne (comparing)</div>
+      <div class="phrase-list">
+        <div class="phrase-row"><span class="no">I hjemlandet mitt ...</span><span class="en">In my home country ...</span></div>
+        <div class="phrase-row"><span class="no">Her i Norge ...</span><span class="en">Here in Norway ...</span></div>
+        <div class="phrase-row"><span class="no">Det er forskjellig fra ...</span><span class="en">It's different from ...</span></div>
+        <div class="phrase-row"><span class="no">Det er ganske likt ...</span><span class="en">It's quite similar to ...</span></div>
+        <div class="phrase-row"><span class="no">Jeg liker at ... / Jeg savner ...</span><span class="en">I like that ... / I miss ...</span></div>
+        <div class="phrase-row"><span class="no">Den største forskjellen er ...</span><span class="en">The biggest difference is ...</span></div>
+        <div class="phrase-row"><span class="no">Jeg har blitt vant til ...</span><span class="en">I've gotten used to ...</span></div>
+      </div>
+
+      <div class="mini-label">Eksempelsetninger</div>
+      <div class="example-sentence">
+        <span class="nor">Jeg liker å bo i Norge fordi det er trygt og naturen er veldig vakker. Men noen ganger savner jeg familien min. <span class="grammar-note">noen ganger = sometimes</span></span>
+        <span class="eng">I like living in Norway because it's safe and nature is very beautiful. But sometimes I miss my family.</span>
+      </div>
+      <div class="example-sentence">
+        <span class="nor">I hjemlandet mitt var det varmere, og vi hadde mer tid med familien. Her i Norge jobber alle mye. <span class="grammar-note">komparativ: varmere</span></span>
+        <span class="eng">In my home country it was warmer, and we had more time with family. Here in Norway everyone works a lot.</span>
+      </div>
+      <div class="example-sentence">
+        <span class="nor">Den viktigste norske tradisjonen er 17. mai. Da feirer man Norges grunnlovsdag med bunad, tog og is. <span class="grammar-note">da = then</span></span>
+        <span class="eng">The most important Norwegian tradition is May 17th. Then they celebrate Norway's Constitution Day with national costumes, parades, and ice cream.</span>
+      </div>
+      <div class="example-sentence">
+        <span class="nor">Jeg har blitt vant til det norske været, selv om det var vanskelig i begynnelsen. Nå har jeg lært at det ikke finnes dårlig vær, bare dårlige klær! <span class="grammar-note">selv om = even though</span></span>
+        <span class="eng">I've gotten used to the Norwegian weather, even though it was difficult in the beginning. Now I've learned there's no bad weather, only bad clothes!</span>
+      </div>
+
+      <div class="tip-box">
+        <strong>For Oppgave 3 (samtale) & 4 (fortelle):</strong> Comparing Norway with your home country is a great way to fill time and show vocabulary. Use «i hjemlandet mitt» as a bridge to talk more!
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <p>Norskprøve A2 – Ordforråd & Temaer · v1 · <a href="norsk-a2-studie.html" style="color:var(--blue);">← Grammatikk</a></p>
+</footer>
+
+<script>
+  function toggle(header) {
+    const block = header.parentElement;
+    block.classList.toggle('open');
+  }
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('nav a');
+  function updateNav() {
+    let current = '';
+    sections.forEach(s => {
+      if (s.getBoundingClientRect().top < 150) current = s.id;
+    });
+    navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + current));
+  }
+  window.addEventListener('scroll', updateNav);
+  updateNav();
+</script>
+</body>
+</html>

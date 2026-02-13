@@ -1,0 +1,1130 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Norskprøve A2 – Muntlig Prøve Studiesider</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=IBM+Plex+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f5f0e8;
+    --bg-card: #fffdf8;
+    --bg-dark: #1a1a2e;
+    --accent: #ba2d0b;
+    --accent-light: #e8563a;
+    --blue: #2d5f8b;
+    --blue-light: #e8f0f7;
+    --green: #2d6b4a;
+    --green-light: #e5f2ec;
+    --purple: #5b3a7a;
+    --purple-light: #f0e8f7;
+    --orange: #c06014;
+    --orange-light: #fdf0e4;
+    --text: #2a2a2a;
+    --text-light: #6b6b6b;
+    --border: #d8d0c4;
+    --shadow: 0 2px 12px rgba(0,0,0,0.06);
+    --shadow-hover: 0 4px 20px rgba(0,0,0,0.10);
+    --radius: 10px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'IBM Plex Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.65;
+    font-weight: 400;
+    font-size: 15px;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: var(--bg-dark);
+    color: #fff;
+    padding: 2.5rem 1.5rem 2rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: 
+      radial-gradient(ellipse at 20% 50%, rgba(186,45,11,0.15) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 30%, rgba(45,95,139,0.12) 0%, transparent 60%);
+  }
+  header * { position: relative; }
+  header h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.3rem;
+  }
+  header h1 span { color: var(--accent-light); }
+  header p {
+    font-size: 0.95rem;
+    opacity: 0.7;
+    font-weight: 300;
+  }
+  .exam-badge {
+    display: inline-block;
+    background: var(--accent);
+    color: #fff;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    margin-bottom: 0.75rem;
+  }
+
+  /* ── EXAM OVERVIEW ── */
+  .exam-overview {
+    max-width: 900px;
+    margin: -1.2rem auto 0;
+    padding: 0 1rem;
+    position: relative;
+    z-index: 2;
+  }
+  .exam-overview .card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.2rem 1.5rem;
+    box-shadow: var(--shadow);
+  }
+  .exam-tasks {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 0.75rem;
+  }
+  .exam-task {
+    background: var(--blue-light);
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    font-size: 0.82rem;
+  }
+  .exam-task strong {
+    display: block;
+    font-size: 0.78rem;
+    color: var(--blue);
+    margin-bottom: 0.2rem;
+  }
+  .exam-task .time {
+    font-size: 0.72rem;
+    color: var(--text-light);
+    margin-top: 0.3rem;
+  }
+
+  /* ── NAV ── */
+  nav {
+    max-width: 900px;
+    margin: 1.5rem auto 0;
+    padding: 0 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--bg);
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--border);
+  }
+  nav a {
+    font-size: 0.78rem;
+    font-weight: 500;
+    text-decoration: none;
+    color: var(--text-light);
+    padding: 0.35rem 0.8rem;
+    border-radius: 20px;
+    border: 1px solid transparent;
+    transition: all 0.2s;
+  }
+  nav a:hover, nav a.active {
+    background: var(--bg-card);
+    border-color: var(--border);
+    color: var(--text);
+  }
+
+  /* ── MAIN ── */
+  main {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 1.5rem 1rem 4rem;
+  }
+
+  /* ── SECTIONS ── */
+  section {
+    margin-bottom: 2.5rem;
+  }
+  section > h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.55rem;
+    font-weight: 400;
+    margin-bottom: 0.2rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--accent);
+    display: inline-block;
+  }
+  section > .section-desc {
+    font-size: 0.85rem;
+    color: var(--text-light);
+    margin-bottom: 1.2rem;
+    margin-top: 0.3rem;
+  }
+
+  /* ── GRAMMAR CARDS ── */
+  .grammar-block {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    margin-bottom: 1rem;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    transition: box-shadow 0.2s;
+  }
+  .grammar-block:hover { box-shadow: var(--shadow-hover); }
+
+  .grammar-header {
+    padding: 1rem 1.25rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    user-select: none;
+  }
+  .grammar-header h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .grammar-header h3 .tag {
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 0.15rem 0.5rem;
+    border-radius: 4px;
+  }
+  .tag-essential { background: #fde8e4; color: var(--accent); }
+  .tag-important { background: var(--orange-light); color: var(--orange); }
+  .tag-useful { background: var(--green-light); color: var(--green); }
+
+  .grammar-header .arrow {
+    font-size: 1.2rem;
+    transition: transform 0.3s;
+    color: var(--text-light);
+  }
+  .grammar-block.open .grammar-header .arrow { transform: rotate(180deg); }
+
+  .grammar-body {
+    display: none;
+    padding: 0 1.25rem 1.25rem;
+  }
+  .grammar-block.open .grammar-body { display: block; }
+
+  /* ── TABLES ── */
+  .table-wrap {
+    overflow-x: auto;
+    margin: 0.75rem 0;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+  }
+  thead { background: var(--bg); }
+  th {
+    text-align: left;
+    padding: 0.6rem 0.8rem;
+    font-weight: 600;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--text-light);
+    border-bottom: 2px solid var(--border);
+  }
+  td {
+    padding: 0.5rem 0.8rem;
+    border-bottom: 1px solid #eee;
+    vertical-align: top;
+  }
+  tr:last-child td { border-bottom: none; }
+  td code, .inline-code {
+    font-family: 'JetBrains Mono', monospace;
+    background: #f0ebe3;
+    padding: 0.1rem 0.35rem;
+    border-radius: 4px;
+    font-size: 0.82rem;
+    font-weight: 500;
+  }
+  .highlight-row { background: #fefbf3; }
+  .no-example { color: var(--accent); font-weight: 500; }
+  .ex { color: var(--blue); font-style: italic; }
+  .transl { color: var(--text-light); font-size: 0.8rem; }
+
+  /* ── RULE BOX ── */
+  .rule-box {
+    background: var(--blue-light);
+    border-left: 3px solid var(--blue);
+    border-radius: 0 8px 8px 0;
+    padding: 0.75rem 1rem;
+    margin: 0.75rem 0;
+    font-size: 0.85rem;
+  }
+  .rule-box.warn {
+    background: #fef3e4;
+    border-left-color: var(--orange);
+  }
+  .rule-box.tip {
+    background: var(--green-light);
+    border-left-color: var(--green);
+  }
+  .rule-box strong:first-child { display: block; margin-bottom: 0.15rem; }
+
+  /* ── EXAMPLE SENTENCES ── */
+  .examples {
+    margin: 0.5rem 0;
+  }
+  .examples .ex-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+    padding: 0.4rem 0;
+    border-bottom: 1px dashed #e8e0d4;
+    font-size: 0.85rem;
+  }
+  .examples .ex-row:last-child { border-bottom: none; }
+  .examples .no { font-weight: 500; }
+  .examples .en { color: var(--text-light); }
+
+  /* ── MINI LABEL ── */
+  .mini-label {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-light);
+    font-weight: 600;
+    margin: 0.75rem 0 0.3rem;
+  }
+
+  /* ── PATTERN ── */
+  .pattern {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.88rem;
+    background: var(--bg);
+    padding: 0.6rem 1rem;
+    border-radius: 8px;
+    margin: 0.5rem 0;
+    border: 1px solid var(--border);
+    font-weight: 500;
+    letter-spacing: 0.02em;
+  }
+  .pattern em {
+    color: var(--accent);
+    font-style: normal;
+    font-weight: 600;
+  }
+
+  /* ── COLLAPSIBLE SECTION TOGGLE ── */
+  .section-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-bottom: 0.5rem;
+    cursor: pointer;
+    font-size: 0.8rem;
+    color: var(--blue);
+    font-weight: 500;
+  }
+  .section-toggle:hover { text-decoration: underline; }
+
+  /* ── PROGRESS DOT (decorative) ── */
+  .progress-bar {
+    display: flex;
+    gap: 0.3rem;
+    margin: 1rem 0;
+  }
+  .progress-bar .dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--border);
+  }
+  .progress-bar .dot.done { background: var(--green); }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center;
+    padding: 2rem 1rem;
+    font-size: 0.75rem;
+    color: var(--text-light);
+    border-top: 1px solid var(--border);
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 600px) {
+    .exam-tasks { grid-template-columns: 1fr 1fr; }
+    .examples .ex-row { grid-template-columns: 1fr; gap: 0.1rem; }
+    nav { gap: 0.3rem; }
+    nav a { font-size: 0.72rem; padding: 0.3rem 0.6rem; }
+  }
+
+  /* ── ANIMATION ── */
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+  section { animation: fadeIn 0.4s ease-out; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="exam-badge">Studiesider</div>
+  <h1>Norskprøve <span>A2</span> – Muntlig</h1>
+  <p>Grammatikk, ordforråd og eksempler for den muntlige prøven</p>
+</header>
+
+<div class="exam-overview">
+  <div class="card">
+    <div class="exam-tasks">
+      <div class="exam-task">
+        <strong>1. Fortell om deg selv</strong>
+        Individuell – du velger selv
+        <div class="time">⏱ ca. 1–2 min</div>
+      </div>
+      <div class="exam-task">
+        <strong>2. Beskriv et bilde</strong>
+        Individuell – si hva du ser
+        <div class="time">⏱ ca. 2–3 min</div>
+      </div>
+      <div class="exam-task">
+        <strong>3. Snakk sammen</strong>
+        Samtale med en annen kandidat
+        <div class="time">⏱ ca. 2–3 min</div>
+      </div>
+      <div class="exam-task">
+        <strong>4. Fortell om et tema</strong>
+        Individuell – dagliglivstema
+        <div class="time">⏱ ca. 2–3 min</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<nav id="topnav">
+  <a href="#ordstilling">Ordstilling</a>
+  <a href="#verb">Verb</a>
+  <a href="#substantiv">Substantiv</a>
+  <a href="#adjektiv">Adjektiv</a>
+  <a href="#pronomen">Pronomen</a>
+  <a href="#preposisjoner">Preposisjoner</a>
+  <a href="#sporsmal">Spørsmål</a>
+  <a href="#setningsbindere">Binde-ord</a>
+  <a href="#modal">Modalverb</a>
+  <a href="#tips">Prøve-tips</a>
+</nav>
+
+<main>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- 1. ORDSTILLING -->
+<!-- ═══════════════════════════════════════ -->
+<section id="ordstilling">
+  <h2>1. Ordstilling (Word Order)</h2>
+  <p class="section-desc">Norwegian word order is the #1 thing examiners listen for. Master these patterns.</p>
+
+  <div class="grammar-block open">
+    <div class="grammar-header" onclick="toggle(this)">
+      <h3><span class="tag tag-essential">Essensielt</span> V2-regelen (Verb Second)</h3>
+      <span class="arrow">▾</span>
+    </div>
+    <div class="grammar-body">
+      <p>In Norwegian main clauses, <strong>the verb always comes in position 2</strong>. This is the most important rule.</p>
+
+      <div class="pattern">
+        Posisjon 1 &nbsp;+&nbsp; <em>VERB</em> &nbsp;+&nbsp; Subjekt &nbsp;+&nbsp; Resten
+      </div>
+
+      <div class="rule-box">
+        <strong>Regel:</strong> If anything other than the subject is in position 1, the subject moves behind the verb. This is called <strong>inversjon</strong>.
+      </div>
+
+      <div class="mini-label">Normal ordstilling</div>
+      <div class="examples">
+        <div class="ex-row"><span class="no"><strong>Jeg</strong> <u>bor</u> i Tromsø.</span><span class="en">I live in Tromsø.</span></div>
+        <div class="ex-row"><span class="no"><strong>Vi</strong> <u>spiser</u> middag klokka seks.</span><span class="en">We eat dinner at six.</span></div>
+      </div>
+
+      <div class="mini-label">Med inversjon (noe annet i pos. 1)</div>
+      <div class="examples">
+        <div class="ex-row"><span class="no"><strong>I dag</strong> <u>bor</u> <strong>jeg</strong> i Tromsø.</span><span class="en">Today I live in Tromsø.</span></div>
+        <div class="ex-row"><span class="no"><strong>Hver dag</strong> <u>spiser</u> <strong>vi</strong> middag.</span><span class="en">Every day we eat dinner.</span></div>
+        <div class="ex-row"><span class="no"><strong>Nå</strong> <u>jobber</u> <strong>hun</strong> på sykehuset.</span><span class="en">Now she works at the hospital.</span></div>
+        <div class="ex-row"><span class="no"><strong>Kanskje</strong> <u>kan</u> <strong>vi</strong> gå på kino.</span><span class="en">Maybe we can go to the cinema.</span></div>
+      </div>
+
+      <div class="rule-box warn">
+        <strong>Vanlig feil:</strong> «I dag <s>jeg bor</s> i Tromsø» ✗ — Husk at verbet MÅ være i posisjon 2!
+      </div>
+    </div>
+  </div>
+
+  <div class="grammar-block">
+    <div class="grammar-header" onclick="toggle(this)">
+      <h3><span class="tag tag-essential">Essensielt</span> Nektelse med «ikke»</h3>
+      <span class="arrow">▾</span>
+    </div>
+    <div class="grammar-body">
+      <p>In main clauses, <code>ikke</code> comes <strong>after the verb</strong>.</p>
+      <div class="pattern">Subjekt + <em>Verb</em> + <em>ikke</em> + resten</div>
+      <div class="examples">
+        <div class="ex-row"><span class="no">Jeg <u>snakker</u> <strong>ikke</strong> norsk så bra.</span><span class="en">I don't speak Norwegian so well.</span></div>
+        <div class="ex-row"><span class="no">Hun <u>liker</u> <strong>ikke</strong> fisk.</span><span class="en">She doesn't like fish.</span></div>
+        <div class="ex-row"><span class="no">Vi <u>har</u> <strong>ikke</strong> bil.</span><span class="en">We don't have a car.</span></div>
+      </div>
+
+      <div class="rule-box tip">
+        <strong>Tips for muntlig:</strong> Just remember: verb first, then «ikke». 
+        <br>«Jeg forstår ikke» / «Jeg vet ikke» are great phrases for the exam!
+      </div>
+    </div>
+  </div>
+
+  <div class="grammar-block">
+    <div class="grammar-header" onclick="toggle(this)">
+      <h3><span class="tag tag-important">Viktig</span> Leddsetning (Subordinate clauses)</h3>
+      <span class="arrow">▾</span>
+    </div>
+    <div class="grammar-body">
+      <p>In subordinate clauses (after <code>fordi, at, når, hvis, som</code>), <code>ikke</code> comes <strong>before</strong> the verb.</p>
+      <div class="pattern">... <em>fordi</em> jeg <em>ikke</em> <em>liker</em> fisk</div>
+      <div class="examples">
+        <div class="ex-row"><span class="no">Jeg spiser salat <strong>fordi</strong> jeg <strong>ikke</strong> liker fisk.</span><span class="en">I eat salad because I don't like fish.</span></div>
+        <div class="ex-row"><span class="no">Han sier <strong>at</strong> han <strong>ikke</strong> kan komme.</span><span class="en">He says that he can't come.</span></div>
+        <div class="ex-row"><span class="no"><strong>Når</strong> det <strong>ikke</strong> regner, går vi tur.</span><span class="en">When it doesn't rain, we go for a walk.</span></div>
+      </div>
+      <div class="rule-box">
+        <strong>Huskeregel:</strong> Hovedsetning: verb + ikke. Leddsetning: ikke + verb.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- 2. VERB -->
+<!-- ═══════════════════════════════════════ -->
+<section id="verb">
+  <h2>2. Verb (Verbs)</h2>
+  <p class="section-desc">You need present tense, past tense, and a few perfect tense forms to score A2.</p>
+
+  <div class="grammar-block open">
+    <div class="grammar-header" onclick="toggle(this)">
+      <h3><span class="tag tag-essential">Essensielt</span> Presens (Present Tense)</h3>
+      <span class="arrow">▾</span>
+    </div>
+    <div class="grammar-body">
+      <p>Present tense is formed by adding <code>-r</code> to the infinitive. Same form for all persons!</p>
+      <div class="pattern">å jobbe → jeg/du/han/vi/de <em>jobber</em></div>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Infinitiv</th><th>Presens</th><th>Eksempel</th></tr></thead>
+          <tbody>
+            <tr><td>å bo</td><td><strong>bor</strong></td><td class="ex">Jeg bor i Norge.</td></tr>
+            <tr><td>å jobbe</td><td><strong>jobber</strong></td><td class="ex">Han jobber på kontoret.</td></tr>
+            <tr><td>å snakke</td><td><strong>snakker</strong></td><td class="ex">Vi snakker norsk.</td></tr>
+            <tr><td>å like</td><td><strong>liker</strong></td><td class="ex">Jeg liker å lese.</td></tr>
+            <tr><td>å ha</td><td><strong>har</strong></td><td class="ex">Hun har to barn.</td></tr>
+            <tr><td>å være</td><td><strong>er</strong></td><td class="ex">Det er kaldt i dag.</td></tr>
+            <tr><td>å gå</td><td><strong>går</strong></td><td class="ex">Vi går på skolen.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="rule-box tip">
+        <strong>For muntlig prøve:</strong> Use present tense when describing pictures (Oppgave 2): «Jeg ser en mann. Han <strong>sitter</strong> på en stol. En kvinne <strong>snakker</strong> i telefonen.»
+      </div>
+    </div>
+  </div>
+
+  <div class="grammar-block">
+    <div class="grammar-header" onclick="toggle(this)">
+      <h3><span class="tag tag-essential">Essensielt</span> Preteritum (Past Tense)</h3>
+      <span class="arrow">▾</span>
+    </div>
+    <div class="grammar-body">
+      <p>Norwegian has 4 verb groups. Knowing the groups helps you form the past tense correctly.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Gruppe</th><th>Infinitiv</th><th>Presens</th><th>Preteritum</th><th>Ending</th></tr></thead>
+          <tbody>
+            <tr class="highlight-row"><td><strong>1</strong></td><td>å snakke</td><td>snakker</td><td><strong>snakket</strong></td><td>-et</td></tr>
+            <tr class="highlight-row"><td></td><td>å jobbe</td><td>jobber</td><td><strong>jobbet</strong></td><td>-et</td></tr>
+            <tr><td><strong>2a</strong></td><td>å spise</td><td>spiser</td><td><strong>spiste</strong></td><td>-te</td></tr>
+            <tr><td></td><td>å like</td><td>liker</td><td><strong>likte</strong></td><td>-te</td></tr>
+            <tr><td><strong>2b</strong></td><td>å leve</td><td>lever</td><td><strong>levde</strong></td><td>-de</td></tr>
+            <tr><td></td><td>å prøve</td><td>prøver</td><td><strong>prøvde</strong></td><td>-de</td></tr>
+            <tr><td><strong>3</strong></td><td>å bo</td><td>bor</td><td><strong>bodde</strong></td><td>-dde</td></tr>
+            <tr><td></td><td>å tro</td><td>tror</td><td><strong>trodde</strong></td><td>-dde</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="mini-label">Viktige uregelmessige verb (Irregular verbs you MUST know)</div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Infinitiv</th><th>Presens</th><th>Preteritum</th><th>Perfektum</th></tr></thead>
+          <tbody>
+            <tr><td>å være</td><td>er</td><td><strong>var</strong></td><td>har vært</td></tr>
+            <tr><td>å ha</td><td>har</td><td><strong>hadde</strong></td><td>har hatt</td></tr>
+            <tr><td>å gå</td><td>går</td><td><strong>gikk</strong></td><td>har gått</td></tr>
+            <tr><td>å komme</td><td>kommer</td><td><strong>kom</strong></td><td>har kommet</td></tr>
+            <tr><td>å gjøre</td><td>gjør</td><td><strong>gjorde</strong></td><td>har gjort</td></tr>
+            <tr><td>å ta</td><td>tar</td><td><strong>tok</strong></td><td>har tatt</td></tr>
+            <tr><td>å se</td><td>ser</td><td><strong>så</strong></td><td>har sett</td></tr>
+            <tr><td>å si</td><td>sier</td><td><strong>sa</strong></td><td>har sagt</td></tr>
+            <tr><td>å bli</td><td>blir</td><td><strong>ble</strong></td><td>har blitt</td></tr>
+            <tr><td>å finne</td><td>finner</td><td><strong>fant</strong></td><td>har funnet</td></tr>
+            <tr><td>å drikke</td><td>drikker</td><td><strong>drakk</strong></td><td>har drukket</td></tr>
+            <tr><td>å få</td><td>får</td><td><strong>fikk</strong></td><td>har fått</td></tr>
+            <tr><td>å gi</td><td>gir</td><td><strong>ga</strong></td><td>har gitt</td></tr>
+            <tr><td>å skrive</td><td>skriver</td><td><strong>skrev</strong></td><td>har skrevet</td></tr>
+            <tr><td>å sitte</td><td>sitter</td><td><strong>satt</strong></td><td>har sittet</td></tr>
+            <tr><td>å ligge</td><td>ligger</td><td><strong>lå</strong></td><td>har ligget</td></tr>
+            <tr><td>å synge</td><td>synger</td><td><strong>sang</strong></td><td>har sunget</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="rule-box tip">
+        <strong>For muntlig prøve:</strong> Use past tense when telling about yourself (Oppgave 1 & 4): «Jeg <strong>kom</strong> til Norge i 2022. Jeg <strong>bodde</strong> først i Oslo.»
+      </div>
+    </div>
+  </div>
+
+  <div class="grammar-block">
+    <div class="grammar-header" onclick="toggle(this)">
+      <h3><span class="tag tag-important">Viktig</span> Perfektum (Present Perfect)</h3>
+      <span class="arrow">▾</span>
+    </div>
+    <div class="grammar-body">
+      <p>Used for experiences and things that started in the past and continue now. Formed with <code>har</code> + past participle.</p>
+      <div class="pattern"><em>har</em> + perfektum partisipp</div>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Gruppe</th><th>Preteritum</th><th>Perfektum</th><th>Partisipp-ending</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td>snakket</td><td>har <strong>snakket</strong></td><td>-et</td></tr>
+            <tr><td>2a</td><td>spiste</td><td>har <strong>spist</strong></td><td>-t</td></tr>
+            <tr><td>2b</td><td>levde</td><td>har <strong>levd</strong></td><td>-d</td></tr>
+            <tr><td>3</td><td>bodde</td><td>har <strong>bodd</strong></td><td>-dd</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="examples">
+        <div class="ex-row"><span class="no">Jeg <strong>har bodd</strong> i Norge i tre år.</span><span class="en">I have lived in Norway for three years.</span></div>
+        <div class="ex-row"><span class="no">Vi <strong>har spist</strong> lunsj allerede.</span><span class="en">We have already eaten lunch.</span></div>
+        <div class="ex-row"><span class="no">Hun <strong>har jobbet</strong> her lenge.</span><span class="en">She has worked here a long time.</span></div>
+        <div class="ex-row"><span class="no"><strong>Har</strong> du <strong>vært</strong> i Bergen?</span><span class="en">Have you been to Bergen?</span></div>
+      </div>
+
+      <div class="rule-box">
+        <strong>Preteritum vs. perfektum:</strong> Use preteritum for finished events (I dag <strong>spiste</strong> jeg frokost). Use perfektum for life experience or ongoing relevance (Jeg <strong>har bodd</strong> i Norge i 2 år).
+      </div>
+    </div>
+  </div>
+
+  <div class="grammar-block">
+    <div class="grammar-header" onclick="toggle(this)">
+      <h3><span class="tag tag-useful">Nyttig</span> Futurum (Future)</h3>
+      <span class="arrow">▾</span>
+    </div>
+    <div class="grammar-body">
+      <p>Norwegian has several ways to express future. The easiest and most common for A2:</p>
+
+      <div class="mini-label">1. «skal» + infinitiv (plans/intentions)</div>
+      <div class="examples">
+        <div class="ex-row"><span class="no">Jeg <strong>skal</strong> reise til Bergen i sommer.</span><span class="en">I'm going to travel to Bergen this summer.</span></div>
+        <div class="ex-row"><span class="no">Vi <strong>skal</strong> spise middag klokka sju.</span><span class="en">We're going to eat dinner at seven.</span></div>
+      </div>
+
+      <div class="mini-label">2. «kommer til å» + infinitiv (predictions)</div>
+      <div class="examples">
+        <div class="ex-row"><span class="no">Det <strong>kommer til å</strong> regne i morgen.</span><span class="en">It's going to rain tomorrow.</span></div>
+        <div class="ex-row"><span class="no">Hun <strong>kommer til å</strong> bli glad.</span><span class="en">She is going to be happy.</span></div>
+      </div>
+
+      <div class="mini-label">3. Present tense (for near future, very common!)</div>
+      <div class="examples">
+        <div class="ex-row"><span class="no">Jeg <strong>reiser</strong> til Bergen i morgen.</span><span class="en">I'm traveling to Bergen tomorrow.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- 3. SUBSTANTIV -->
+<!-- ═══════════════════════════════════════ -->
+<section id="substantiv">
+  <h2>3. Substantiv (Nouns)</h2>
+  <p class="section-desc">Gender and definite/indefinite forms — know the patterns.</p>
+
+  <div class="grammar-block open">
+    <div class="grammar-header" onclick="toggle(this)">
+      <h3><span class="tag tag-essential">Essensielt</span> Kjønn og bøyning (Gender & Forms)</h3>
+      <span class="arrow">▾</span>
+    </div>
+    <div class="grammar-body">
+      <p>Norwegian has three genders. For A2 you can merge feminine into masculine (use <code>en</code> instead of <code>ei</code>) — many Norwegians do this too!</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Kjønn</th><th>Ubestemt ent.</th><th>Bestemt ent.</th><th>Ubestemt fl.</th><th>Bestemt fl.</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Maskulin (en)</strong></td><td>en stol</td><td>stol<strong>en</strong></td><td>stol<strong>er</strong></td><td>stol<strong>ene</strong></td></tr>
+            <tr><td><strong>Feminin (ei/en)</strong></td><td>ei/en jente</td><td>jent<strong>a</strong>/jent<strong>en</strong></td><td>jent<strong>er</strong></td><td>jent<strong>ene</strong></td></tr>
+            <tr><td><strong>Nøytrum (et)</strong></td><td>et hus</td><td>hus<strong>et</strong></td><td>hus</td><td>hus<strong>a</strong>/<strong>ene</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="mini-label">Flere eksempler</div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th></th><th>en/ei/et ___</th><th>___en/a/et</th><th>___er</th><th>___ene</th></tr></thead>
+          <tbody>
+            <tr><td>en bil</td><td>en bil</td><td>bilen</td><td>biler</td><td>bilene</td></tr>
+            <tr><td>en dag</td><td>en dag</td><td>dagen</td><td>dager</td><td>dagene</td></tr>
+            <tr><td>en venn</td><td>en venn</td><td>vennen</td><td>venner</td><td>vennene</td></tr>
+            <tr><td>et barn</td><td>et barn</td><td>barnet</td><td>barn</td><td>barna</td></tr>
+            <tr><td>et år</td><td>et år</td><td>året</td><td>år</td><td>årene</td></tr>
+            <tr><td>et eple</td><td>et eple</td><td>eplet</td><td>epler</td><td>eplene</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="rule-box tip">
+        <strong>A2-strategi:</strong> You don't need to know every noun's gender. Learn the gender of common nouns you'll use in the exam. If unsure, use <code>en</code> — it's statistically the most common.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- 4. ADJEKTIV -->
+<!-- ═══════════════════════════════════════ -->
+<section id="adjektiv">
+  <h2>4. Adjektiv (Adjectives)</h2>
+  <p class="section-desc">Adjectives change form based on gender, number, and definiteness. Key for describing pictures!</p>
+
+  <div class="grammar-block open">
+    <div class="grammar-header" onclick="toggle(this)">
+      <h3><span class="tag tag-essential">Essensielt</span> Adjektivbøyning (Agreement)</h3>
+      <span class="arrow">▾</span>
+    </div>
+    <div class="grammar-body">
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th></th><th>en-ord (m/f)</th><th>et-ord (n)</th><th>Flertall</th><th>Bestemt</th></tr></thead>
+          <tbody>
+            <tr><td><strong>stor</strong></td><td>en <strong>stor</strong> bil</td><td>et <strong>stor<u>t</u></strong> hus</td><td><strong>stor<u>e</u></strong> biler</td><td>den <strong>stor<u>e</u></strong> bilen</td></tr>
+            <tr><td><strong>fin</strong></td><td>en <strong>fin</strong> dag</td><td>et <strong>fin<u>t</u></strong> sted</td><td><strong>fin<u>e</u></strong> dager</td><td>den <strong>fin<u>e</u></strong> dagen</td></tr>
+            <tr><td><strong>norsk</strong></td><td>en <strong>norsk</strong> bok</td><td>et <strong>norsk</strong> ord</td><td><strong>norsk<u>e</u></strong> bøker</td><td>den <strong>norsk<u>e</u></strong> boka</td></tr>
+            <tr><td><strong>ny</strong></td><td>en <strong>ny</strong> jobb</td><td>et <strong>ny<u>tt</u></strong> hus</td><td><strong>ny<u>e</u></strong> jobber</td><td>den <strong>ny<u>e</u></strong> jobben</td></tr>
+            <tr><td><strong>god/bra</strong></td><td>en <strong>god</strong> bok</td><td>et <strong>god<u>t</u></strong> råd</td><td><strong>god<u>e</u></strong> bøker</td><td>den <strong>god<u>e</u></strong> boka</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="rule-box">
+        <strong>Regler:</strong><br>
+        • <strong>et-ord:</strong> legg til <code>-t</code> (stor → stort, fin → fint)<br>
+        • <strong>Flertall & bestemt:</strong> legg til <code>-e</code> (stor → store, fin → fine)<br>
+        • <strong>Bestemt form:</strong> den/det/de + adjektiv-e + substantiv-en/-et/-ene
+      </div>
+
+      <div class="mini-label">Uregelmessige adjektiv du bør kunne</div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Grunnform</th><th>et-ord</th><th>Flertall/bestemt</th><th>Merk</th></tr></thead>
+          <tbody>
+            <tr><td>liten</td><td>lite</td><td>små</td><td>Completely irregular!</td></tr>
+            <tr><td>gammel</td><td>gammelt</td><td>gamle</td><td></td></tr>
+            <tr><td>lang</td><td>langt</td><td>lange</td><td></td></tr>
+            <tr><td>ung</td><td>ungt</td><td>unge</td><td></td></tr>
+            <tr><td>annen</td><td>annet</td><td>andre</td><td></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="rule-box tip">
+        <strong>For bildeoppgaven:</strong> «Jeg ser <strong>en stor</strong> park. Det er <strong>mange</strong> mennesker. En <strong>liten</strong> gutt leker.»
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- 5. PRONOMEN -->
+<!-- ═══════════════════════════════════════ -->
+<section id="pronomen">
+  <h2>5. Pronomen (Pronouns)</h2>
+  <p class="section-desc">You need subject, object, and possessive forms.</p>
+
+  <div class="grammar-block open">
+    <div class="grammar-header" onclick="toggle(this)">
+      <h3><span class="tag tag-essential">Essensielt</span> Personlige pronomen</h3>
+      <span class="arrow">▾</span>
+    </div>
+    <div class="grammar-body">
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Subjekt</th><th>Objekt</th><th>Eiendom (min...)</th><th>Norsk eksempel</th></tr></thead>
+          <tbody>
+            <tr><td><strong>jeg</strong></td><td>meg</td><td>min/mi/mitt/mine</td><td class="ex">Min familie bor i Oslo.</td></tr>
+            <tr><td><strong>du</strong></td><td>deg</td><td>din/di/ditt/dine</td><td class="ex">Er det din bok?</td></tr>
+            <tr><td><strong>han</strong></td><td>ham/han</td><td>hans</td><td class="ex">Hans bror er lege.</td></tr>
+            <tr><td><strong>hun</strong></td><td>henne</td><td>hennes</td><td class="ex">Hennes søster studerer.</td></tr>
+            <tr><td><strong>vi</strong></td><td>oss</td><td>vår/vårt/våre</td><td class="ex">Vårt hus er lite.</td></tr>
+            <tr><td><strong>dere</strong></td><td>dere</td><td>deres</td><td class="ex">Hva er deres mening?</td></tr>
+            <tr><td><strong>de</strong></td><td>dem</td><td>deres</td><td class="ex">Deres barn går på skolen.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="rule-box">
+        <strong>Eiendomsord – to posisjoner:</strong><br>
+        • Foran: <code>min bil</code> (litt formelt)<br>
+        • Bak (mest vanlig muntlig): <code>bilen min</code> ← use this one in the exam!
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th></th><th>en-ord</th><th>ei-ord</th><th>et-ord</th><th>Flertall</th></tr></thead>
+          <tbody>
+            <tr><td><strong>min</strong></td><td>bilen <strong>min</strong></td><td>boka <strong>mi</strong></td><td>huset <strong>mitt</strong></td><td>vennene <strong>mine</strong></td></tr>
+            <tr><td><strong>din</strong></td><td>bilen <strong>din</strong></td><td>boka <strong>di</strong></td><td>huset <strong>ditt</strong></td><td>vennene <strong>dine</strong></td></tr>
+            <tr><td><strong>vår</strong></td><td>bilen <strong>vår</strong></td><td>boka <strong>vår</strong></td><td>huset <strong>vårt</strong></td><td>vennene <strong>våre</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- 6. PREPOSISJONER -->
+<!-- ═══════════════════════════════════════ -->
+<section id="preposisjoner">
+  <h2>6. Preposisjoner (Prepositions)</h2>
+  <p class="section-desc">Essential for describing places, time, and movement — you'll need these in every task.</p>
+
+  <div class="grammar-block open">
+    <div class="grammar-header" onclick="toggle(this)">
+      <h3><span class="tag tag-essential">Essensielt</span> Sted og retning (Place & Direction)</h3>
+      <span class="arrow">▾</span>
+    </div>
+    <div class="grammar-body">
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Preposisjon</th><th>Bruk</th><th>Eksempel</th></tr></thead>
+          <tbody>
+            <tr><td><strong>i</strong></td><td>in (inside, countries, cities)</td><td class="ex">Jeg bor <strong>i</strong> Norge / <strong>i</strong> et hus</td></tr>
+            <tr><td><strong>på</strong></td><td>on, at (surfaces, institutions)</td><td class="ex">Boka er <strong>på</strong> bordet / Jeg jobber <strong>på</strong> sykehuset</td></tr>
+            <tr><td><strong>til</strong></td><td>to (direction)</td><td class="ex">Jeg reiser <strong>til</strong> Bergen / Jeg går <strong>til</strong> skolen</td></tr>
+            <tr><td><strong>fra</strong></td><td>from</td><td class="ex">Jeg kommer <strong>fra</strong> Syria</td></tr>
+            <tr><td><strong>ved</strong></td><td>near, by</td><td class="ex">Hun sitter <strong>ved</strong> vinduet</td></tr>
+            <tr><td><strong>hos</strong></td><td>at someone's place</td><td class="ex">Vi er <strong>hos</strong> bestemor</td></tr>
+            <tr><td><strong>mellom</strong></td><td>between</td><td class="ex"><strong>Mellom</strong> huset og parken</td></tr>
+            <tr><td><strong>foran</strong></td><td>in front of</td><td class="ex">Bilen står <strong>foran</strong> huset</td></tr>
+            <tr><td><strong>bak</strong></td><td>behind</td><td class="ex">Barnet gjemmer seg <strong>bak</strong> treet</td></tr>
+            <tr><td><strong>over</strong></td><td>above, over</td><td class="ex">Lampa henger <strong>over</strong> bordet</td></tr>
+            <tr><td><strong>under</strong></td><td>under</td><td class="ex">Katten ligger <strong>under</strong> stolen</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="rule-box tip">
+        <strong>For bildeoppgaven:</strong> Use prepositions actively! «<strong>Til venstre</strong> ser jeg en butikk. <strong>Foran</strong> butikken står en mann. <strong>Ved siden av</strong> ham sitter en hund.»
+      </div>
+    </div>
+  </div>
+
+  <div class="grammar-block">
+    <div class="grammar-header" onclick="toggle(this)">
+      <h3><span class="tag tag-important">Viktig</span> Tid (Time prepositions)</h3>
+      <span class="arrow">▾</span>
+    </div>
+    <div class="grammar-body">
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Preposisjon</th><th>Bruk</th><th>Eksempel</th></tr></thead>
+          <tbody>
+            <tr><td><strong>i</strong></td><td>months, years, seasons, duration</td><td class="ex"><strong>I</strong> januar / <strong>i</strong> 2022 / <strong>i</strong> to år</td></tr>
+            <tr><td><strong>på</strong></td><td>days of the week</td><td class="ex"><strong>På</strong> mandag / <strong>på</strong> lørdag</td></tr>
+            <tr><td><strong>om</strong></td><td>parts of the day, general time</td><td class="ex"><strong>Om</strong> morgenen / <strong>om</strong> sommeren</td></tr>
+            <tr><td><strong>klokka</strong></td><td>at (time)</td><td class="ex"><strong>Klokka</strong> åtte / <strong>klokka</strong> halv tre</td></tr>
+            <tr><td><strong>for … siden</strong></td><td>ago</td><td class="ex"><strong>For</strong> to år <strong>siden</strong></td></tr>
+            <tr><td><strong>om</strong></td><td>in (future)</td><td class="ex"><strong>Om</strong> en uke / <strong>om</strong> to dager</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- 7. SPØRSMÅL -->
+<!-- ═══════════════════════════════════════ -->
+<section id="sporsmal">
+  <h2>7. Spørsmål (Questions)</h2>
+  <p class="section-desc">You'll need to ask and answer questions in Oppgave 3 (samtale).</p>
+
+  <div class="grammar-block open">
+    <div class="grammar-header" onclick="toggle(this)">
+      <h3><span class="tag tag-essential">Essensielt</span> Spørreord & Ja/Nei-spørsmål</h3>
+      <span class="arrow">▾</span>
+    </div>
+    <div class="grammar-body">
+
+      <div class="mini-label">Ja/Nei-spørsmål (verb first)</div>
+      <div class="pattern"><em>Verb</em> + subjekt + resten?</div>
+      <div class="examples">
+        <div class="ex-row"><span class="no"><strong>Liker</strong> du norsk mat?</span><span class="en">Do you like Norwegian food?</span></div>
+        <div class="ex-row"><span class="no"><strong>Har</strong> du barn?</span><span class="en">Do you have children?</span></div>
+        <div class="ex-row"><span class="no"><strong>Bor</strong> du i Tromsø?</span><span class="en">Do you live in Tromsø?</span></div>
+      </div>
+
+      <div class="mini-label">Spørreord (question words)</div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Spørreord</th><th>Betyr</th><th>Eksempel</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Hva</strong></td><td>What</td><td class="ex">Hva heter du?</td></tr>
+            <tr><td><strong>Hvem</strong></td><td>Who</td><td class="ex">Hvem er det?</td></tr>
+            <tr><td><strong>Hvor</strong></td><td>Where</td><td class="ex">Hvor bor du?</td></tr>
+            <tr><td><strong>Hvor lenge</strong></td><td>How long</td><td class="ex">Hvor lenge har du bodd her?</td></tr>
+            <tr><td><strong>Hvor mange</strong></td><td>How many</td><td class="ex">Hvor mange søsken har du?</td></tr>
+            <tr><td><strong>Hvorfor</strong></td><td>Why</td><td class="ex">Hvorfor liker du det?</td></tr>
+            <tr><td><strong>Hvordan</strong></td><td>How</td><td class="ex">Hvordan går det?</td></tr>
+            <tr><td><strong>Når</strong></td><td>When</td><td class="ex">Når kom du til Norge?</td></tr>
+            <tr><td><strong>Hvilken/Hvilket/Hvilke</strong></td><td>Which</td><td class="ex">Hvilken sport liker du?</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="rule-box tip">
+        <strong>For samtaleoppgaven (Oppgave 3):</strong> Ask your partner questions back! 
+        «Og du? Hva synes du?» / «Liker du det også?» / «Hva med deg?» — this shows interaction and boosts your score.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- 8. SETNINGSBINDERE -->
+<!-- ═══════════════════════════════════════ -->
+<section id="setningsbindere">
+  <h2>8. Setningsbindere (Connectors)</h2>
+  <p class="section-desc">Using connectors makes your speech sound more natural and fluent — examiners love this!</p>
+
+  <div class="grammar-block open">
+    <div class="grammar-header" onclick="toggle(this)">
+      <h3><span class="tag tag-essential">Essensielt</span> Konjunksjoner & Subjunksjoner</h3>
+      <span class="arrow">▾</span>
+    </div>
+    <div class="grammar-body">
+
+      <div class="mini-label">Konjunksjoner (no inversjon – normal word order after)</div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Ord</th><th>Betyr</th><th>Eksempel</th></tr></thead>
+          <tbody>
+            <tr><td><strong>og</strong></td><td>and</td><td class="ex">Jeg liker å lese <strong>og</strong> se på TV.</td></tr>
+            <tr><td><strong>men</strong></td><td>but</td><td class="ex">Jeg liker kaffe, <strong>men</strong> jeg liker ikke te.</td></tr>
+            <tr><td><strong>eller</strong></td><td>or</td><td class="ex">Vil du ha kaffe <strong>eller</strong> te?</td></tr>
+            <tr><td><strong>for</strong></td><td>because (formal)</td><td class="ex">Jeg er trøtt, <strong>for</strong> jeg sov lite.</td></tr>
+            <tr><td><strong>så</strong></td><td>so, then</td><td class="ex">Det regner, <strong>så</strong> vi er inne.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="mini-label">Subjunksjoner (start subordinate clause)</div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Ord</th><th>Betyr</th><th>Eksempel</th></tr></thead>
+          <tbody>
+            <tr><td><strong>fordi</strong></td><td>because</td><td class="ex">Jeg lærer norsk <strong>fordi</strong> jeg bor i Norge.</td></tr>
+            <tr><td><strong>når</strong></td><td>when</td><td class="ex"><strong>Når</strong> det er fint vær, liker jeg å gå tur.</td></tr>
+            <tr><td><strong>hvis</strong></td><td>if</td><td class="ex"><strong>Hvis</strong> jeg har tid, trener jeg.</td></tr>
+            <tr><td><strong>at</strong></td><td>that</td><td class="ex">Jeg synes <strong>at</strong> norsk er vanskelig.</td></tr>
+            <tr><td><strong>som</strong></td><td>that/which/who</td><td class="ex">Mannen <strong>som</strong> sitter der, er læreren min.</td></tr>
+            <tr><td><strong>selv om</strong></td><td>even though</td><td class="ex"><strong>Selv om</strong> det er kaldt, går vi tur.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="mini-label">Nyttige tidsord (useful for storytelling)</div>
+      <div class="examples">
+        <div class="ex-row"><span class="no"><strong>Først</strong> ... <strong>så</strong> ... <strong>til slutt</strong> ...</span><span class="en">First ... then ... finally ...</span></div>
+        <div class="ex-row"><span class="no"><strong>Dessuten</strong> liker jeg å lage mat.</span><span class="en">Besides, I like to cook.</span></div>
+        <div class="ex-row"><span class="no"><strong>Også</strong> liker jeg å trene.</span><span class="en">I also like to exercise.</span></div>
+        <div class="ex-row"><span class="no"><strong>For eksempel</strong> spiller jeg fotball.</span><span class="en">For example, I play football.</span></div>
+      </div>
+
+      <div class="rule-box warn">
+        <strong>Husk inversjon!</strong> When a subordinate clause comes first, the main clause uses inversion:<br>
+        <strong>Når jeg er ferdig med jobben,</strong> <u>går</u> <strong>jeg</strong> hjem. (verb before subject!)
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- 9. MODALVERB -->
+<!-- ═══════════════════════════════════════ -->
+<section id="modal">
+  <h2>9. Modalverb (Modal Verbs)</h2>
+  <p class="section-desc">Essential for expressing ability, wishes, and necessity.</p>
+
+  <div class="grammar-block open">
+    <div class="grammar-header" onclick="toggle(this)">
+      <h3><span class="tag tag-essential">Essensielt</span> Modal + Infinitiv</h3>
+      <span class="arrow">▾</span>
+    </div>
+    <div class="grammar-body">
+      <div class="pattern">Subjekt + <em>modalverb</em> + <em>infinitiv</em> (uten «å»!)</div>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Modal</th><th>Presens</th><th>Preteritum</th><th>Betyr</th><th>Eksempel</th></tr></thead>
+          <tbody>
+            <tr><td><strong>å kunne</strong></td><td>kan</td><td>kunne</td><td>can, be able</td><td class="ex">Jeg <strong>kan</strong> snakke litt norsk.</td></tr>
+            <tr><td><strong>å ville</strong></td><td>vil</td><td>ville</td><td>want to, will</td><td class="ex">Jeg <strong>vil</strong> lære mer norsk.</td></tr>
+            <tr><td><strong>å skulle</strong></td><td>skal</td><td>skulle</td><td>shall, going to</td><td class="ex">Vi <strong>skal</strong> ha fest i morgen.</td></tr>
+            <tr><td><strong>å måtte</strong></td><td>må</td><td>måtte</td><td>must, have to</td><td class="ex">Jeg <strong>må</strong> øve mer.</td></tr>
+            <tr><td><strong>å burde</strong></td><td>bør</td><td>burde</td><td>should</td><td class="ex">Du <strong>bør</strong> ta med paraply.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="rule-box warn">
+        <strong>Ingen «å»!</strong> Etter modalverb bruker vi infinitiv <em>uten</em> «å»:<br>
+        Jeg kan <strong>snakke</strong> norsk. ✓ &nbsp;&nbsp; Jeg kan <s>å snakke</s> norsk. ✗
+      </div>
+
+      <div class="rule-box tip">
+        <strong>Nyttige fraser for prøven:</strong><br>
+        «Jeg <strong>kan</strong> fortelle om…» / «Jeg <strong>vil</strong> gjerne si at…» / «Vi <strong>må</strong> snakke om…» / «Jeg <strong>skal</strong> prøve å forklare…»
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- 10. TIPS -->
+<!-- ═══════════════════════════════════════ -->
+<section id="tips">
+  <h2>10. Tips for muntlig prøve</h2>
+  <p class="section-desc">Practical strategies to score a solid A2 on exam day.</p>
+
+  <div class="grammar-block open">
+    <div class="grammar-header" onclick="toggle(this)">
+      <h3>Generelle tips</h3>
+      <span class="arrow">▾</span>
+    </div>
+    <div class="grammar-body">
+      <div class="rule-box tip">
+        <strong>1. Snakk tydelig og rolig.</strong> You don't need to speak fast. Speak clearly and at a comfortable pace.
+      </div>
+      <div class="rule-box tip">
+        <strong>2. Bruk hele tiden.</strong> If you have 2–3 minutes, USE them. Don't stop after 30 seconds. The more you say, the more they can evaluate.
+      </div>
+      <div class="rule-box tip">
+        <strong>3. Bruk setningsbindere!</strong> Words like «fordi», «men», «og», «for eksempel», «dessuten» show you can connect ideas. This is what separates A1 from A2.
+      </div>
+      <div class="rule-box tip">
+        <strong>4. Varier verbtidene.</strong> Mix present, past, and future. «Nå <strong>jobber</strong> jeg... Før <strong>jobbet</strong> jeg... Neste år <strong>skal</strong> jeg...»
+      </div>
+      <div class="rule-box tip">
+        <strong>5. Still spørsmål tilbake (Oppgave 3).</strong> In the conversation task, actively ask your partner questions. «Hva synes du?» / «Og du da?» / «Er du enig?»
+      </div>
+      <div class="rule-box tip">
+        <strong>6. Hvis du ikke forstår, si det!</strong><br>
+        «Kan du gjenta det?» / «Hva betyr...?» / «Unnskyld, jeg forstår ikke.» — This is totally fine and shows communication skills.
+      </div>
+      <div class="rule-box tip">
+        <strong>7. For bildeoppgaven — bruk en struktur:</strong><br>
+        «På bildet ser jeg…» → «Til venstre/høyre…» → «I bakgrunnen / foran…» → «Jeg tror at…» → «Det minner meg om…»
+      </div>
+    </div>
+  </div>
+
+  <div class="grammar-block">
+    <div class="grammar-header" onclick="toggle(this)">
+      <h3>Nyttige «filler»-fraser (kjøpe tenketid)</h3>
+      <span class="arrow">▾</span>
+    </div>
+    <div class="grammar-body">
+      <p>These phrases buy you thinking time and sound natural:</p>
+      <div class="examples">
+        <div class="ex-row"><span class="no"><strong>Hmm, la meg tenke...</strong></span><span class="en">Hmm, let me think...</span></div>
+        <div class="ex-row"><span class="no"><strong>Det er et godt spørsmål.</strong></span><span class="en">That's a good question.</span></div>
+        <div class="ex-row"><span class="no"><strong>Jeg tror at...</strong></span><span class="en">I think that...</span></div>
+        <div class="ex-row"><span class="no"><strong>Jeg synes at...</strong></span><span class="en">I think/feel that...</span></div>
+        <div class="ex-row"><span class="no"><strong>For å være ærlig...</strong></span><span class="en">To be honest...</span></div>
+        <div class="ex-row"><span class="no"><strong>Jeg er ikke sikker, men...</strong></span><span class="en">I'm not sure, but...</span></div>
+        <div class="ex-row"><span class="no"><strong>Det kommer an på...</strong></span><span class="en">It depends on...</span></div>
+        <div class="ex-row"><span class="no"><strong>Hva skal jeg si...</strong></span><span class="en">What should I say...</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <p>Norskprøve A2 – Muntlig Studiesider · Grammatikk v1 · Neste: Ordforråd & Temaer</p>
+</footer>
+
+<script>
+  // Toggle grammar blocks
+  function toggle(header) {
+    const block = header.parentElement;
+    block.classList.toggle('open');
+  }
+
+  // Highlight active nav on scroll
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('nav a');
+
+  function updateNav() {
+    let current = '';
+    sections.forEach(s => {
+      const top = s.getBoundingClientRect().top;
+      if (top < 150) current = s.id;
+    });
+    navLinks.forEach(a => {
+      a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+    });
+  }
+  window.addEventListener('scroll', updateNav);
+  updateNav();
+</script>
+</body>
+</html>

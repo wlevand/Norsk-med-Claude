@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Norskprøve A2 – Ordkort</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=IBM+Plex+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f5f0e8;
+    --bg-card: #fffdf8;
+    --bg-dark: #1a1a2e;
+    --accent: #ba2d0b;
+    --accent-light: #e8563a;
+    --blue: #2d5f8b;
+    --blue-light: #e8f0f7;
+    --green: #2d6b4a;
+    --green-light: #e5f2ec;
+    --purple: #5b3a7a;
+    --purple-light: #f0e8f7;
+    --orange: #c06014;
+    --orange-light: #fdf0e4;
+    --teal: #1a7a6d;
+    --teal-light: #e2f5f2;
+    --text: #2a2a2a;
+    --text-light: #6b6b6b;
+    --border: #d8d0c4;
+    --shadow: 0 2px 12px rgba(0,0,0,0.06);
+    --shadow-hover: 0 4px 20px rgba(0,0,0,0.10);
+    --radius: 12px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'IBM Plex Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    font-size: 15px;
+    min-height: 100vh;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: var(--bg-dark);
+    color: #fff;
+    padding: 2rem 1.5rem 1.5rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 30% 50%, rgba(91,58,122,0.15) 0%, transparent 60%),
+      radial-gradient(ellipse at 70% 30%, rgba(26,122,109,0.12) 0%, transparent 60%);
+  }
+  header * { position: relative; }
+  header h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(1.6rem, 3.5vw, 2.2rem);
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.2rem;
+  }
+  header h1 span { color: #c9a0dc; }
+  header p { font-size: 0.85rem; opacity: 0.6; font-weight: 300; }
+  .header-badge {
+    display: inline-block;
+    background: var(--purple);
+    color: #fff;
+    font-size: 0.68rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 0.2rem 0.7rem;
+    border-radius: 20px;
+    margin-bottom: 0.6rem;
+  }
+  .back-links {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 0.5rem;
+  }
+  .back-links a {
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.45);
+    text-decoration: none;
+  }
+  .back-links a:hover { color: rgba(255,255,255,0.8); }
+
+  /* ── CONTROLS ── */
+  .controls {
+    max-width: 600px;
+    margin: 1.2rem auto 0;
+    padding: 0 1rem;
+  }
+  .controls-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-bottom: 0.6rem;
+    align-items: center;
+  }
+  .topic-btn {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.73rem;
+    font-weight: 500;
+    padding: 0.3rem 0.65rem;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    background: var(--bg-card);
+    color: var(--text-light);
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .topic-btn:hover { border-color: var(--blue); color: var(--blue); }
+  .topic-btn.active { background: var(--blue); color: #fff; border-color: var(--blue); }
+  .topic-btn.upload-btn { border-style: dashed; }
+
+  .action-row {
+    display: flex;
+    gap: 0.4rem;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .action-btn {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.35rem 0.75rem;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .btn-shuffle { background: var(--orange-light); color: var(--orange); }
+  .btn-shuffle:hover { background: var(--orange); color: #fff; }
+  .btn-reset { background: #f0ebe3; color: var(--text-light); }
+  .btn-reset:hover { background: var(--accent); color: #fff; }
+  .btn-show-all { background: var(--blue-light); color: var(--blue); }
+  .btn-show-all:hover { background: var(--blue); color: #fff; }
+
+  .progress-info {
+    font-size: 0.75rem;
+    color: var(--text-light);
+    margin-left: auto;
+  }
+  .progress-bar-wrap {
+    width: 100%;
+    height: 4px;
+    background: var(--border);
+    border-radius: 2px;
+    margin-top: 0.5rem;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: var(--green);
+    border-radius: 2px;
+    transition: width 0.3s;
+  }
+
+  /* ── CARD AREA ── */
+  .card-area {
+    max-width: 600px;
+    margin: 1.2rem auto;
+    padding: 0 1rem;
+    min-height: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* ── FLASHCARD ── */
+  .flashcard-container {
+    width: 100%;
+    max-width: 480px;
+    perspective: 1000px;
+    cursor: pointer;
+    margin-bottom: 1rem;
+  }
+  .flashcard {
+    width: 100%;
+    min-height: 220px;
+    position: relative;
+    transition: transform 0.5s;
+    transform-style: preserve-3d;
+  }
+  .flashcard.flipped { transform: rotateY(180deg); }
+  .card-face {
+    position: absolute;
+    inset: 0;
+    backface-visibility: hidden;
+    border-radius: var(--radius);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1.5rem;
+    box-shadow: var(--shadow-hover);
+    border: 1px solid var(--border);
+  }
+  .card-front { background: var(--bg-card); }
+  .card-back { background: var(--blue-light); transform: rotateY(180deg); }
+  .card-word {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.8rem;
+    font-weight: 400;
+    text-align: center;
+    margin-bottom: 0.5rem;
+  }
+  .card-back .card-word { color: var(--blue); }
+  .card-topic-badge {
+    position: absolute;
+    top: 0.75rem;
+    left: 0.75rem;
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding: 0.15rem 0.45rem;
+    border-radius: 4px;
+    background: #f0ebe3;
+    color: var(--text-light);
+  }
+  .card-number {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    font-size: 0.7rem;
+    color: var(--text-light);
+  }
+  .card-tap-hint {
+    font-size: 0.72rem;
+    color: var(--text-light);
+    margin-top: 0.75rem;
+    opacity: 0.6;
+  }
+  .gt-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    margin-top: 0.6rem;
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--blue);
+    text-decoration: none;
+    padding: 0.3rem 0.7rem;
+    border-radius: 6px;
+    background: rgba(45,95,139,0.08);
+    transition: all 0.15s;
+  }
+  .gt-link:hover { background: rgba(45,95,139,0.15); }
+
+  /* ── NAV BUTTONS ── */
+  .card-nav {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    width: 100%;
+    max-width: 480px;
+  }
+  .nav-btn {
+    flex: 1;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 0.65rem;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .btn-prev { background: #f0ebe3; color: var(--text); }
+  .btn-prev:hover { background: var(--border); }
+  .btn-know { background: var(--green-light); color: var(--green); }
+  .btn-know:hover { background: var(--green); color: #fff; }
+  .btn-next { background: var(--blue-light); color: var(--blue); }
+  .btn-next:hover { background: var(--blue); color: #fff; }
+
+  /* ── UPLOAD MODAL ── */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+  }
+  .modal-overlay.show { display: flex; }
+  .modal {
+    background: var(--bg-card);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    max-width: 500px;
+    width: 100%;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+  .modal h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+  }
+  .modal p {
+    font-size: 0.84rem;
+    color: var(--text-light);
+    margin-bottom: 0.75rem;
+  }
+  .modal code {
+    font-family: 'JetBrains Mono', monospace;
+    background: #f0ebe3;
+    padding: 0.1rem 0.35rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+  }
+  .modal pre {
+    font-family: 'JetBrains Mono', monospace;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.75rem;
+    font-size: 0.78rem;
+    margin-bottom: 0.75rem;
+    overflow-x: auto;
+    line-height: 1.5;
+  }
+  .modal textarea {
+    width: 100%;
+    min-height: 120px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.82rem;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.75rem;
+    margin-bottom: 0.5rem;
+    resize: vertical;
+    background: var(--bg);
+  }
+  .modal textarea:focus { outline: 2px solid var(--blue); border-color: transparent; }
+  .modal-buttons {
+    display: flex;
+    gap: 0.4rem;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+  }
+  .modal-btn {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 0.45rem 1rem;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+  }
+  .modal-btn-cancel { background: #f0ebe3; color: var(--text); }
+  .modal-btn-import { background: var(--blue); color: #fff; }
+  .modal-btn-import:hover { background: var(--bg-dark); }
+  .modal-btn-clear { background: var(--accent); color: #fff; font-size: 0.72rem; }
+
+  .file-input-wrap { margin-bottom: 0.75rem; }
+  .file-input-wrap label {
+    display: inline-block;
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 0.4rem 0.8rem;
+    border-radius: 8px;
+    background: var(--purple-light);
+    color: var(--purple);
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .file-input-wrap label:hover { background: var(--purple); color: #fff; }
+  .file-input-wrap input { display: none; }
+  .file-name { font-size: 0.75rem; color: var(--text-light); margin-left: 0.5rem; }
+  .or-divider { text-align: center; font-size: 0.75rem; color: var(--text-light); margin: 0.5rem 0; }
+
+  /* ── ALL WORDS VIEW ── */
+  .all-words-view {
+    display: none;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 0 1rem 3rem;
+  }
+  .all-words-view.show { display: block; }
+  .all-words-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.83rem;
+    background: var(--bg-card);
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+  .all-words-table th {
+    text-align: left;
+    padding: 0.5rem 0.7rem;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--text-light);
+    background: var(--bg);
+    border-bottom: 2px solid var(--border);
+  }
+  .all-words-table td {
+    padding: 0.4rem 0.7rem;
+    border-bottom: 1px solid #eee;
+  }
+  .all-words-table tr:last-child td { border-bottom: none; }
+  .all-words-table tr.known { opacity: 0.4; }
+  .all-words-table .gt-mini {
+    color: var(--blue);
+    text-decoration: none;
+    font-size: 0.75rem;
+  }
+
+  /* ── STATUS MSG ── */
+  .status-msg {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: var(--text-light);
+  }
+  .status-msg .emoji { font-size: 2rem; margin-bottom: 0.5rem; display: block; }
+  .status-msg p { font-size: 0.85rem; margin-bottom: 0.3rem; }
+  .status-msg .sub { font-size: 0.78rem; opacity: 0.7; }
+  .status-msg code {
+    font-family: 'JetBrains Mono', monospace;
+    background: #f0ebe3;
+    padding: 0.1rem 0.35rem;
+    border-radius: 4px;
+    font-size: 0.78rem;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center;
+    padding: 2rem 1rem;
+    font-size: 0.75rem;
+    color: var(--text-light);
+    border-top: 1px solid var(--border);
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  footer a { color: var(--blue); }
+
+  @media (max-width: 400px) {
+    .card-word { font-size: 1.4rem; }
+    .card-face { min-height: 180px; padding: 1.5rem 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-badge">Ordkort / Flashcards</div>
+  <h1>Norskprøve <span>A2</span> – Ordkort</h1>
+  <p>Øv på ordforråd med flashcards · Trykk for å lytte i Google Translate</p>
+  <div class="back-links">
+    <a href="norsk-a2-studie.html">← Grammatikk</a>
+    <a href="norsk-a2-ordforrad.html">← Ordforråd</a>
+  </div>
+</header>
+
+<div class="controls">
+  <div class="controls-row" id="topicButtons"></div>
+  <div class="action-row">
+    <button class="action-btn btn-shuffle" onclick="shuffleCards()">🔀 Bland</button>
+    <button class="action-btn btn-reset" onclick="resetKnown()">↩ Nullstill</button>
+    <button class="action-btn btn-show-all" onclick="toggleAllWords()">📋 Vis alle</button>
+    <span class="progress-info" id="progressInfo">0 / 0</span>
+  </div>
+  <div class="progress-bar-wrap">
+    <div class="progress-fill" id="progressFill"></div>
+  </div>
+</div>
+
+<div class="card-area" id="cardArea">
+  <div class="status-msg" id="loadingMsg">
+    <span class="emoji">⏳</span>
+    <p>Laster ordforråd...</p>
+  </div>
+</div>
+
+<div class="all-words-view" id="allWordsView">
+  <table class="all-words-table">
+    <thead><tr><th>Norsk</th><th>English</th><th>Tema</th><th></th></tr></thead>
+    <tbody id="allWordsBody"></tbody>
+  </table>
+</div>
+
+<!-- UPLOAD MODAL -->
+<div class="modal-overlay" id="uploadModal">
+  <div class="modal">
+    <h3>Importer egne ord</h3>
+    <p>Last opp en CSV-fil eller lim inn ordene direkte.<br>
+    Format: <code>norsk;english</code> eller <code>norsk;english;topic</code> (én per linje).</p>
+    <pre>huset;the house
+å spise;to eat;Mat
+god morgen;good morning;Fraser</pre>
+
+    <div class="file-input-wrap">
+      <label for="csvFile">📁 Velg CSV-fil</label>
+      <input type="file" id="csvFile" accept=".csv,.txt,.tsv">
+      <span class="file-name" id="fileName"></span>
+    </div>
+
+    <div class="or-divider">— eller lim inn her —</div>
+
+    <textarea id="pasteArea" placeholder="huset;the house&#10;en stol;a chair&#10;å gå;to walk;Verb"></textarea>
+
+    <div class="modal-buttons">
+      <button class="modal-btn modal-btn-clear" onclick="clearImported()">Slett importerte</button>
+      <button class="modal-btn modal-btn-cancel" onclick="closeModal()">Avbryt</button>
+      <button class="modal-btn modal-btn-import" onclick="importFromModal()">Importer</button>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>Norskprøve A2 – Ordkort · <a href="norsk-a2-studie.html">Grammatikk</a> · <a href="norsk-a2-ordforrad.html">Ordforråd & Temaer</a></p>
+</footer>
+
+<script>
+// ═══════════════════════════════════════════════
+// CONFIG — LIST YOUR CSV FILES HERE
+// Files must be in the same folder as this HTML
+// (or use relative paths like 'data/words.csv')
+// ═══════════════════════════════════════════════
+const CSV_FILES = [
+  'norsk-a2-ordforrad.csv',
+  // 'mine-egne-ord.csv',
+  // 'google-translate-export.csv',
+];
+
+// ═══════════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════════
+let csvVocab = [];
+let importedVocab = JSON.parse(localStorage.getItem('importedVocab') || '[]');
+let knownIds = new Set(JSON.parse(localStorage.getItem('knownIds') || '[]'));
+let activeTopic = 'Alle';
+let currentIndex = 0;
+let filteredCards = [];
+let showingAllWords = false;
+
+function getAllVocab() { return [...csvVocab, ...importedVocab]; }
+function getCardId(c) { return c.no + '|' + c.en; }
+
+// ═══════════════════════════════════════════════
+// CSV PARSING
+// ═══════════════════════════════════════════════
+function parseCSV(text, defaultTopic) {
+  const words = [];
+  for (const raw of text.trim().split('\n')) {
+    const line = raw.trim();
+    if (!line || line.startsWith('#')) continue;
+
+    let parts;
+    if (line.includes(';'))       parts = line.split(';');
+    else if (line.includes('\t')) parts = line.split('\t');
+    else {
+      const idx = line.indexOf(',');
+      if (idx === -1) continue;
+      parts = [line.substring(0, idx), line.substring(idx + 1)];
+    }
+
+    if (parts.length >= 2) {
+      const no = parts[0].trim();
+      const en = parts[1].trim();
+      const topic = (parts[2] || defaultTopic || 'Uten tema').trim();
+      if (no && en) words.push({ no, en, topic });
+    }
+  }
+  return words;
+}
+
+// ═══════════════════════════════════════════════
+// LOAD CSVs FROM SERVER
+// ═══════════════════════════════════════════════
+async function loadCSVFiles() {
+  const errors = [];
+
+  for (const file of CSV_FILES) {
+    try {
+      const resp = await fetch(file);
+      if (!resp.ok) throw new Error(`${resp.status}`);
+      const text = await resp.text();
+      // derive default topic from filename: "norsk-a2-ordforrad.csv" → skip
+      // but if the CSV has a 3rd column, that takes priority
+      const words = parseCSV(text);
+      csvVocab.push(...words);
+    } catch (err) {
+      console.warn(`Could not load ${file}:`, err.message);
+      errors.push(file);
+    }
+  }
+
+  // deduplicate
+  const seen = new Set();
+  csvVocab = csvVocab.filter(w => {
+    const k = w.no.toLowerCase();
+    if (seen.has(k)) return false;
+    seen.add(k);
+    return true;
+  });
+
+  return errors;
+}
+
+// ═══════════════════════════════════════════════
+// TOPICS
+// ═══════════════════════════════════════════════
+function getTopics() {
+  const t = new Set();
+  getAllVocab().forEach(v => t.add(v.topic));
+  return ['Alle', ...Array.from(t).sort()];
+}
+
+// ═══════════════════════════════════════════════
+// RENDER
+// ═══════════════════════════════════════════════
+function renderTopicButtons() {
+  const el = document.getElementById('topicButtons');
+  el.innerHTML = getTopics().map(t =>
+    `<button class="topic-btn ${t===activeTopic?'active':''}" onclick="setTopic('${t.replace(/'/g,"\\'")}')">${t}</button>`
+  ).join('') + `<button class="topic-btn upload-btn" onclick="openModal()">+ Importer</button>`;
+}
+
+function filterCards() {
+  const all = getAllVocab();
+  filteredCards = activeTopic === 'Alle' ? [...all] : all.filter(v => v.topic === activeTopic);
+  const unknown = filteredCards.filter(c => !knownIds.has(getCardId(c)));
+  if (unknown.length > 0) filteredCards = unknown;
+  currentIndex = 0;
+}
+
+function renderCard() {
+  const area = document.getElementById('cardArea');
+
+  if (getAllVocab().length === 0) {
+    area.innerHTML = `<div class="status-msg">
+      <span class="emoji">📂</span>
+      <p>Ingen ord lastet ennå.</p>
+      <p class="sub">Legg CSV-filer i mappen og list dem i <code>CSV_FILES</code>,<br>eller trykk <strong>+ Importer</strong> for å legge til ord manuelt.</p>
+    </div>`;
+    updateProgress();
+    return;
+  }
+
+  if (filteredCards.length === 0) {
+    area.innerHTML = `<div class="status-msg">
+      <span class="emoji">🎉</span>
+      <p>Alle ord er lært!</p>
+      <p class="sub">Trykk «Nullstill» for å begynne på nytt.</p>
+    </div>`;
+    updateProgress();
+    return;
+  }
+
+  if (!document.getElementById('flashcard')) {
+    area.innerHTML = `
+      <div class="flashcard-container" onclick="flipCard()">
+        <div class="flashcard" id="flashcard">
+          <div class="card-face card-front">
+            <div class="card-topic-badge" id="cardTopic"></div>
+            <div class="card-number" id="cardNumber"></div>
+            <div class="card-word" id="cardFrontWord"></div>
+            <div class="card-tap-hint">tap to flip</div>
+          </div>
+          <div class="card-face card-back">
+            <div class="card-topic-badge" id="cardTopicBack"></div>
+            <div class="card-number" id="cardNumberBack"></div>
+            <div class="card-word" id="cardBackWord"></div>
+            <a class="gt-link" id="gtLink" href="#" target="_blank" onclick="event.stopPropagation()">🔊 Hør i Google Translate</a>
+          </div>
+        </div>
+      </div>
+      <div class="card-nav">
+        <button class="nav-btn btn-prev" onclick="prevCard()">← Forrige</button>
+        <button class="nav-btn btn-know" onclick="markKnown()">✓ Kan</button>
+        <button class="nav-btn btn-next" onclick="nextCard()">Neste →</button>
+      </div>`;
+  }
+
+  const card = filteredCards[currentIndex];
+  document.getElementById('flashcard').classList.remove('flipped');
+  document.getElementById('cardFrontWord').textContent = card.no;
+  document.getElementById('cardBackWord').textContent = card.en;
+  document.getElementById('cardTopic').textContent = card.topic;
+  document.getElementById('cardTopicBack').textContent = card.topic;
+  document.getElementById('cardNumber').textContent = `${currentIndex+1} / ${filteredCards.length}`;
+  document.getElementById('cardNumberBack').textContent = `${currentIndex+1} / ${filteredCards.length}`;
+  document.getElementById('gtLink').href = `https://translate.google.com/?sl=no&tl=en&text=${encodeURIComponent(card.no)}&op=translate`;
+  updateProgress();
+}
+
+function updateProgress() {
+  const all = activeTopic === 'Alle' ? getAllVocab() : getAllVocab().filter(v => v.topic === activeTopic);
+  const known = all.filter(c => knownIds.has(getCardId(c))).length;
+  document.getElementById('progressInfo').textContent = `${known} / ${all.length} lært`;
+  document.getElementById('progressFill').style.width = all.length > 0 ? `${(known/all.length)*100}%` : '0%';
+}
+
+// ═══════════════════════════════════════════════
+// ACTIONS
+// ═══════════════════════════════════════════════
+function flipCard() { const f = document.getElementById('flashcard'); if(f) f.classList.toggle('flipped'); }
+function nextCard() { if(!filteredCards.length) return; currentIndex = (currentIndex+1)%filteredCards.length; renderCard(); }
+function prevCard() { if(!filteredCards.length) return; currentIndex = (currentIndex-1+filteredCards.length)%filteredCards.length; renderCard(); }
+
+function markKnown() {
+  if(!filteredCards.length) return;
+  knownIds.add(getCardId(filteredCards[currentIndex]));
+  localStorage.setItem('knownIds', JSON.stringify([...knownIds]));
+  filteredCards.splice(currentIndex, 1);
+  if(currentIndex >= filteredCards.length) currentIndex = 0;
+  renderCard();
+}
+
+function shuffleCards() {
+  for(let i=filteredCards.length-1;i>0;i--) { const j=Math.floor(Math.random()*(i+1)); [filteredCards[i],filteredCards[j]]=[filteredCards[j],filteredCards[i]]; }
+  currentIndex = 0;
+  renderCard();
+}
+
+function resetKnown() {
+  knownIds.clear();
+  localStorage.setItem('knownIds','[]');
+  filterCards(); renderCard(); renderTopicButtons();
+}
+
+function setTopic(t) {
+  activeTopic = t;
+  filterCards(); renderCard(); renderTopicButtons();
+  if(showingAllWords) renderAllWords();
+}
+
+function toggleAllWords() {
+  showingAllWords = !showingAllWords;
+  document.getElementById('allWordsView').classList.toggle('show', showingAllWords);
+  if(showingAllWords) renderAllWords();
+}
+
+function renderAllWords() {
+  const all = activeTopic === 'Alle' ? getAllVocab() : getAllVocab().filter(v => v.topic === activeTopic);
+  document.getElementById('allWordsBody').innerHTML = all.map(c => {
+    const gt = `https://translate.google.com/?sl=no&tl=en&text=${encodeURIComponent(c.no)}&op=translate`;
+    return `<tr class="${knownIds.has(getCardId(c))?'known':''}">
+      <td><strong>${c.no}</strong></td><td>${c.en}</td><td>${c.topic}</td>
+      <td><a class="gt-mini" href="${gt}" target="_blank">🔊</a></td></tr>`;
+  }).join('');
+}
+
+// ═══════════════════════════════════════════════
+// MODAL IMPORT
+// ═══════════════════════════════════════════════
+function openModal() { document.getElementById('uploadModal').classList.add('show'); }
+function closeModal() {
+  document.getElementById('uploadModal').classList.remove('show');
+  document.getElementById('pasteArea').value = '';
+  document.getElementById('fileName').textContent = '';
+  document.getElementById('csvFile').value = '';
+}
+
+document.getElementById('csvFile').addEventListener('change', function(e) {
+  const file = e.target.files[0];
+  if(file) {
+    document.getElementById('fileName').textContent = file.name;
+    const r = new FileReader();
+    r.onload = ev => { document.getElementById('pasteArea').value = ev.target.result; };
+    r.readAsText(file);
+  }
+});
+
+function importFromModal() {
+  const text = document.getElementById('pasteArea').value;
+  if(!text.trim()) { closeModal(); return; }
+  const words = parseCSV(text, 'Importert');
+  if(!words.length) { alert('Ingen ord funnet. Sjekk formatet: norsk;english'); return; }
+  const existing = new Set(importedVocab.map(w => w.no.toLowerCase()));
+  const added = words.filter(w => !existing.has(w.no.toLowerCase()));
+  importedVocab = [...importedVocab, ...added];
+  localStorage.setItem('importedVocab', JSON.stringify(importedVocab));
+  closeModal(); filterCards(); renderCard(); renderTopicButtons();
+  alert(`${added.length} nye ord importert! (${words.length-added.length} duplikater hoppet over)`);
+}
+
+function clearImported() {
+  if(!confirm('Slette alle manuelt importerte ord?')) return;
+  importedVocab = [];
+  localStorage.setItem('importedVocab', '[]');
+  closeModal(); filterCards(); renderCard(); renderTopicButtons();
+}
+
+// ═══════════════════════════════════════════════
+// SWIPE + KEYBOARD
+// ═══════════════════════════════════════════════
+let touchX = 0;
+document.addEventListener('touchstart', e => { touchX = e.changedTouches[0].screenX; });
+document.addEventListener('touchend', e => {
+  const d = e.changedTouches[0].screenX - touchX;
+  if(Math.abs(d)>60) { d>0 ? prevCard() : nextCard(); }
+});
+document.addEventListener('keydown', e => {
+  if(e.target.tagName==='TEXTAREA'||e.target.tagName==='INPUT') return;
+  if(e.key==='ArrowRight'||e.key===' ') { e.preventDefault(); nextCard(); }
+  if(e.key==='ArrowLeft') prevCard();
+  if(e.key==='ArrowUp'||e.key==='Enter') { e.preventDefault(); flipCard(); }
+  if(e.key==='ArrowDown'||e.key==='k') markKnown();
+});
+
+// ═══════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════
+async function init() {
+  const errors = await loadCSVFiles();
+  if(errors.length) console.warn('Failed to load:', errors);
+  renderTopicButtons();
+  filterCards();
+  shuffleCards();
+}
+init();
+</script>
+</body>
+</html>
