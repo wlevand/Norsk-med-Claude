@@ -143,6 +143,8 @@
   .btn-reset:hover { background: var(--accent); color: #fff; }
   .btn-show-all { background: var(--blue-light); color: var(--blue); }
   .btn-show-all:hover { background: var(--blue); color: #fff; }
+  .btn-direction { background: var(--purple-light); color: var(--purple); }
+  .btn-direction:hover { background: var(--purple); color: #fff; }
 
   .progress-info {
     font-size: 0.75rem;
@@ -481,6 +483,7 @@
   <h1>Norskprøve <span>A2</span> – Ordkort</h1>
   <p>Øv på ordforråd med flashcards · Trykk for å lytte i Google Translate</p>
   <div class="back-links">
+    <a href="index.html">🏠 Hjem</a>
     <a href="norsk-a2-studie.html">← Grammatikk</a>
     <a href="norsk-a2-ordforrad.html">← Ordforråd</a>
   </div>
@@ -492,6 +495,7 @@
     <button class="action-btn btn-shuffle" onclick="shuffleCards()">🔀 Bland</button>
     <button class="action-btn btn-reset" onclick="resetKnown()">↩ Nullstill</button>
     <button class="action-btn btn-show-all" onclick="toggleAllWords()">📋 Vis alle</button>
+    <button class="action-btn btn-direction" id="dirBtn" onclick="toggleDirection()">🔄 NO→EN</button>
     <span class="progress-info" id="progressInfo">0 / 0</span>
   </div>
   <div class="progress-bar-wrap">
@@ -571,6 +575,7 @@ let activeTopic = 'Alle';
 let currentIndex = 0;
 let filteredCards = [];
 let showingAllWords = false;
+let direction = 'no-en'; // 'no-en' or 'en-no'
 
 function getAllVocab() { return [...csvVocab, ...importedVocab]; }
 function getCardId(c) { return c.no + '|' + c.en; }
@@ -775,14 +780,17 @@ function renderCard() {
   }
 
   const card = filteredCards[currentIndex];
+  const front = direction === 'no-en' ? card.no : card.en;
+  const back = direction === 'no-en' ? card.en : card.no;
+  const gtText = card.no;
   document.getElementById('flashcard').classList.remove('flipped');
-  document.getElementById('cardFrontWord').textContent = card.no;
-  document.getElementById('cardBackWord').textContent = card.en;
+  document.getElementById('cardFrontWord').textContent = front;
+  document.getElementById('cardBackWord').textContent = back;
   document.getElementById('cardTopic').textContent = card.topic;
   document.getElementById('cardTopicBack').textContent = card.topic;
   document.getElementById('cardNumber').textContent = `${currentIndex+1} / ${filteredCards.length}`;
   document.getElementById('cardNumberBack').textContent = `${currentIndex+1} / ${filteredCards.length}`;
-  document.getElementById('gtLink').href = `https://translate.google.com/?sl=no&tl=en&text=${encodeURIComponent(card.no)}&op=translate`;
+  document.getElementById('gtLink').href = `https://translate.google.com/?sl=no&tl=en&text=${encodeURIComponent(gtText)}&op=translate`;
   updateProgress();
 }
 
@@ -796,9 +804,16 @@ function updateProgress() {
 // ═══════════════════════════════════════════════
 // ACTIONS
 // ═══════════════════════════════════════════════
+function toggleDirection() {
+  direction = direction === 'no-en' ? 'en-no' : 'no-en';
+  document.getElementById('dirBtn').textContent = direction === 'no-en' ? '🔄 NO→EN' : '🔄 EN→NO';
+  renderCard();
+}
+
 function copyWord() {
   if (!filteredCards.length) return;
-  const word = filteredCards[currentIndex].no;
+  const card = filteredCards[currentIndex];
+  const word = direction === 'no-en' ? card.no : card.en;
   navigator.clipboard.writeText(word).then(() => {
     const btn = document.getElementById('copyBtn');
     btn.textContent = '✓ Kopiert!';
