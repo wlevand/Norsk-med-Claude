@@ -382,6 +382,89 @@
     nav a { font-size: 0.72rem; padding: 0.3rem 0.6rem; }
   }
 
+  /* ── USER NOTES ── */
+  .user-note-area {
+    margin-top: 0.75rem;
+    padding-top: 0.75rem;
+    border-top: 1px dashed var(--border);
+  }
+  .user-note-toggle {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--orange);
+    background: rgba(192,96,20,0.06);
+    border: 1px solid rgba(192,96,20,0.2);
+    padding: 0.25rem 0.6rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .user-note-toggle:hover { background: rgba(192,96,20,0.12); }
+  .user-note-toggle.has-note { background: var(--orange-light); border-color: var(--orange); }
+  .user-note-editor {
+    display: none;
+    margin-top: 0.5rem;
+  }
+  .user-note-editor.show { display: block; }
+  .user-note-editor textarea {
+    width: 100%;
+    min-height: 60px;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.82rem;
+    border: 1px solid var(--orange);
+    border-radius: 8px;
+    padding: 0.5rem 0.7rem;
+    resize: vertical;
+    background: #fffdf8;
+    line-height: 1.5;
+  }
+  .user-note-editor textarea:focus { outline: 2px solid var(--orange); border-color: transparent; }
+  .user-note-saved {
+    margin-top: 0.5rem;
+    background: var(--orange-light);
+    border-radius: 8px;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.82rem;
+    color: var(--text);
+    white-space: pre-wrap;
+    line-height: 1.5;
+  }
+  .user-note-saved .note-label {
+    font-size: 0.68rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--orange);
+    margin-bottom: 0.2rem;
+    display: block;
+  }
+  .notes-toolbar {
+    display: flex;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+  }
+  .notes-toolbar-btn {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 600;
+    padding: 0.3rem 0.65rem;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    background: var(--bg-card);
+    color: var(--text-light);
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+    text-decoration: none;
+  }
+  .notes-toolbar-btn:hover { border-color: var(--orange); color: var(--orange); }
+  .notes-toolbar-btn.export-btn { color: var(--green); border-color: var(--green); }
+  .notes-toolbar-btn.export-btn:hover { background: var(--green); color: #fff; }
+  .notes-toolbar-btn.import-btn { color: var(--blue); border-color: var(--blue); }
+  .notes-toolbar-btn.import-btn:hover { background: var(--blue); color: #fff; }
+  .notes-file-input { display: none; }
+
   /* ── ANIMATION ── */
   @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
   section { animation: fadeIn 0.4s ease-out; }
@@ -435,6 +518,14 @@
   <a href="#modal">Modalverb</a>
   <a href="#tips">Prøve-tips</a>
 </nav>
+
+<div style="max-width:800px;margin:0.5rem auto 0;padding:0 1rem;">
+  <div class="notes-toolbar">
+    <button class="notes-toolbar-btn export-btn" onclick="exportNotes()">⬇ Eksporter notater (JSON)</button>
+    <button class="notes-toolbar-btn import-btn" onclick="document.getElementById('notesFileInput').click()">⬆ Importer notater</button>
+    <input type="file" id="notesFileInput" class="notes-file-input" accept=".json" onchange="importNotesFile(this)">
+  </div>
+</div>
 
 <main>
 
@@ -518,6 +609,17 @@
       <div class="rule-box">
         <strong>Huskeregel:</strong> Hovedsetning: verb + ikke. Leddsetning: ikke + verb.
       </div>
+    </div>
+  </div>
+
+  <div class="user-note-area">
+    <button class="user-note-toggle" id="noteToggle-ordstilling" onclick="toggleNote('ordstilling')">📝 Mine notater</button>
+    <div class="user-note-editor" id="noteEditor-ordstilling">
+      <textarea id="noteInput-ordstilling" placeholder="Skriv dine egne notater om Ordstilling her..." oninput="saveGrammarNote('ordstilling')"></textarea>
+    </div>
+    <div class="user-note-saved" id="noteSaved-ordstilling" style="display:none;">
+      <span class="note-label">📝 Mine notater</span>
+      <span id="noteText-ordstilling"></span>
     </div>
   </div>
 </section>
@@ -675,6 +777,17 @@
       </div>
     </div>
   </div>
+
+  <div class="user-note-area">
+    <button class="user-note-toggle" id="noteToggle-verb" onclick="toggleNote('verb')">📝 Mine notater</button>
+    <div class="user-note-editor" id="noteEditor-verb">
+      <textarea id="noteInput-verb" placeholder="Skriv dine egne notater om Verb her..." oninput="saveGrammarNote('verb')"></textarea>
+    </div>
+    <div class="user-note-saved" id="noteSaved-verb" style="display:none;">
+      <span class="note-label">📝 Mine notater</span>
+      <span id="noteText-verb"></span>
+    </div>
+  </div>
 </section>
 
 <!-- ═══════════════════════════════════════ -->
@@ -721,6 +834,17 @@
       <div class="rule-box tip">
         <strong>A2-strategi:</strong> You don't need to know every noun's gender. Learn the gender of common nouns you'll use in the exam. If unsure, use <code>en</code> — it's statistically the most common.
       </div>
+    </div>
+  </div>
+
+  <div class="user-note-area">
+    <button class="user-note-toggle" id="noteToggle-substantiv" onclick="toggleNote('substantiv')">📝 Mine notater</button>
+    <div class="user-note-editor" id="noteEditor-substantiv">
+      <textarea id="noteInput-substantiv" placeholder="Skriv dine egne notater om Substantiv her..." oninput="saveGrammarNote('substantiv')"></textarea>
+    </div>
+    <div class="user-note-saved" id="noteSaved-substantiv" style="display:none;">
+      <span class="note-label">📝 Mine notater</span>
+      <span id="noteText-substantiv"></span>
     </div>
   </div>
 </section>
@@ -778,6 +902,17 @@
       </div>
     </div>
   </div>
+
+  <div class="user-note-area">
+    <button class="user-note-toggle" id="noteToggle-adjektiv" onclick="toggleNote('adjektiv')">📝 Mine notater</button>
+    <div class="user-note-editor" id="noteEditor-adjektiv">
+      <textarea id="noteInput-adjektiv" placeholder="Skriv dine egne notater om Adjektiv her..." oninput="saveGrammarNote('adjektiv')"></textarea>
+    </div>
+    <div class="user-note-saved" id="noteSaved-adjektiv" style="display:none;">
+      <span class="note-label">📝 Mine notater</span>
+      <span id="noteText-adjektiv"></span>
+    </div>
+  </div>
 </section>
 
 <!-- ═══════════════════════════════════════ -->
@@ -824,6 +959,17 @@
           </tbody>
         </table>
       </div>
+    </div>
+  </div>
+
+  <div class="user-note-area">
+    <button class="user-note-toggle" id="noteToggle-pronomen" onclick="toggleNote('pronomen')">📝 Mine notater</button>
+    <div class="user-note-editor" id="noteEditor-pronomen">
+      <textarea id="noteInput-pronomen" placeholder="Skriv dine egne notater om Pronomen her..." oninput="saveGrammarNote('pronomen')"></textarea>
+    </div>
+    <div class="user-note-saved" id="noteSaved-pronomen" style="display:none;">
+      <span class="note-label">📝 Mine notater</span>
+      <span id="noteText-pronomen"></span>
     </div>
   </div>
 </section>
@@ -887,6 +1033,17 @@
       </div>
     </div>
   </div>
+
+  <div class="user-note-area">
+    <button class="user-note-toggle" id="noteToggle-preposisjoner" onclick="toggleNote('preposisjoner')">📝 Mine notater</button>
+    <div class="user-note-editor" id="noteEditor-preposisjoner">
+      <textarea id="noteInput-preposisjoner" placeholder="Skriv dine egne notater om Preposisjoner her..." oninput="saveGrammarNote('preposisjoner')"></textarea>
+    </div>
+    <div class="user-note-saved" id="noteSaved-preposisjoner" style="display:none;">
+      <span class="note-label">📝 Mine notater</span>
+      <span id="noteText-preposisjoner"></span>
+    </div>
+  </div>
 </section>
 
 <!-- ═══════════════════════════════════════ -->
@@ -933,6 +1090,17 @@
         <strong>For samtaleoppgaven (Oppgave 3):</strong> Ask your partner questions back! 
         «Og du? Hva synes du?» / «Liker du det også?» / «Hva med deg?» — this shows interaction and boosts your score.
       </div>
+    </div>
+  </div>
+
+  <div class="user-note-area">
+    <button class="user-note-toggle" id="noteToggle-sporsmal" onclick="toggleNote('sporsmal')">📝 Mine notater</button>
+    <div class="user-note-editor" id="noteEditor-sporsmal">
+      <textarea id="noteInput-sporsmal" placeholder="Skriv dine egne notater om Spørsmål her..." oninput="saveGrammarNote('sporsmal')"></textarea>
+    </div>
+    <div class="user-note-saved" id="noteSaved-sporsmal" style="display:none;">
+      <span class="note-label">📝 Mine notater</span>
+      <span id="noteText-sporsmal"></span>
     </div>
   </div>
 </section>
@@ -994,6 +1162,17 @@
       </div>
     </div>
   </div>
+
+  <div class="user-note-area">
+    <button class="user-note-toggle" id="noteToggle-setningsbindere" onclick="toggleNote('setningsbindere')">📝 Mine notater</button>
+    <div class="user-note-editor" id="noteEditor-setningsbindere">
+      <textarea id="noteInput-setningsbindere" placeholder="Skriv dine egne notater om Setningsbindere her..." oninput="saveGrammarNote('setningsbindere')"></textarea>
+    </div>
+    <div class="user-note-saved" id="noteSaved-setningsbindere" style="display:none;">
+      <span class="note-label">📝 Mine notater</span>
+      <span id="noteText-setningsbindere"></span>
+    </div>
+  </div>
 </section>
 
 <!-- ═══════════════════════════════════════ -->
@@ -1033,6 +1212,17 @@
         <strong>Nyttige fraser for prøven:</strong><br>
         «Jeg <strong>kan</strong> fortelle om…» / «Jeg <strong>vil</strong> gjerne si at…» / «Vi <strong>må</strong> snakke om…» / «Jeg <strong>skal</strong> prøve å forklare…»
       </div>
+    </div>
+  </div>
+
+  <div class="user-note-area">
+    <button class="user-note-toggle" id="noteToggle-modal" onclick="toggleNote('modal')">📝 Mine notater</button>
+    <div class="user-note-editor" id="noteEditor-modal">
+      <textarea id="noteInput-modal" placeholder="Skriv dine egne notater om Modalverb her..." oninput="saveGrammarNote('modal')"></textarea>
+    </div>
+    <div class="user-note-saved" id="noteSaved-modal" style="display:none;">
+      <span class="note-label">📝 Mine notater</span>
+      <span id="noteText-modal"></span>
     </div>
   </div>
 </section>
@@ -1095,6 +1285,17 @@
       </div>
     </div>
   </div>
+
+  <div class="user-note-area">
+    <button class="user-note-toggle" id="noteToggle-tips" onclick="toggleNote('tips')">📝 Mine notater</button>
+    <div class="user-note-editor" id="noteEditor-tips">
+      <textarea id="noteInput-tips" placeholder="Skriv dine egne notater om Prøve-tips her..." oninput="saveGrammarNote('tips')"></textarea>
+    </div>
+    <div class="user-note-saved" id="noteSaved-tips" style="display:none;">
+      <span class="note-label">📝 Mine notater</span>
+      <span id="noteText-tips"></span>
+    </div>
+  </div>
 </section>
 
 </main>
@@ -1126,6 +1327,100 @@
   }
   window.addEventListener('scroll', updateNav);
   updateNav();
+  // ═══════════════════════════════════
+  // USER NOTES
+  // ═══════════════════════════════════
+  const grammarNotes = JSON.parse(localStorage.getItem('grammarNotes') || '{}');
+  const sectionIds = ['ordstilling','verb','substantiv','adjektiv','pronomen','preposisjoner','sporsmal','setningsbindere','modal','tips'];
+
+  function initNotes() {
+    sectionIds.forEach(sid => {
+      const note = grammarNotes[sid] || '';
+      const input = document.getElementById('noteInput-' + sid);
+      const saved = document.getElementById('noteSaved-' + sid);
+      const text = document.getElementById('noteText-' + sid);
+      const toggle = document.getElementById('noteToggle-' + sid);
+      if (note) {
+        input.value = note;
+        text.textContent = note;
+        saved.style.display = '';
+        toggle.classList.add('has-note');
+        toggle.textContent = '📝 Mine notater ✓';
+      }
+    });
+  }
+
+  function toggleNote(sid) {
+    const editor = document.getElementById('noteEditor-' + sid);
+    const input = document.getElementById('noteInput-' + sid);
+    const isOpen = editor.classList.contains('show');
+    editor.classList.toggle('show');
+    if (!isOpen) input.focus();
+  }
+
+  function saveGrammarNote(sid) {
+    const input = document.getElementById('noteInput-' + sid);
+    const saved = document.getElementById('noteSaved-' + sid);
+    const text = document.getElementById('noteText-' + sid);
+    const toggle = document.getElementById('noteToggle-' + sid);
+    const note = input.value.trim();
+
+    if (note) {
+      grammarNotes[sid] = note;
+      text.textContent = note;
+      saved.style.display = '';
+      toggle.classList.add('has-note');
+      toggle.textContent = '📝 Mine notater ✓';
+    } else {
+      delete grammarNotes[sid];
+      saved.style.display = 'none';
+      toggle.classList.remove('has-note');
+      toggle.textContent = '📝 Mine notater';
+    }
+    localStorage.setItem('grammarNotes', JSON.stringify(grammarNotes));
+  }
+
+  function exportNotes() {
+    const data = {
+      exported: new Date().toISOString(),
+      notes: grammarNotes
+    };
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'norsk-grammatikk-notater.json';
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
+  function importNotesFile(input) {
+    const file = input.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      try {
+        const data = JSON.parse(e.target.result);
+        const imported = data.notes || data;
+        let count = 0;
+        Object.keys(imported).forEach(sid => {
+          if (sectionIds.includes(sid) && imported[sid]) {
+            grammarNotes[sid] = imported[sid];
+            count++;
+          }
+        });
+        localStorage.setItem('grammarNotes', JSON.stringify(grammarNotes));
+        initNotes();
+        alert(count + ' notater importert!');
+      } catch (err) {
+        alert('Kunne ikke lese filen. Sjekk at den er en gyldig JSON-fil.');
+      }
+      input.value = '';
+    };
+    reader.readAsText(file);
+  }
+
+  initNotes();
 </script>
 </body>
 </html>
