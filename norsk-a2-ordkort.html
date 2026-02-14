@@ -838,7 +838,8 @@ function renderCard() {
             <div class="card-number" id="cardNumber"></div>
             <div class="card-word" id="cardFrontWord"></div>
             <div style="display:flex;gap:0.4rem;align-items:center;margin-top:0.3rem;">
-              <button class="copy-btn" id="copyBtn" onclick="event.stopPropagation(); copyWord()">📋 Kopier</button>
+              <button class="copy-btn" id="copyBtnFront" style="display:none;" onclick="event.stopPropagation(); copyNorwegian()">📋 Kopier</button>
+              <a class="gt-link" id="gtLinkFront" style="display:none;" href="#" target="_blank" onclick="event.stopPropagation()">🔊 Google Translate</a>
               <button class="note-btn" id="noteBtn" onclick="event.stopPropagation(); openNoteEditor()">📝 Notat</button>
             </div>
             <div class="card-tap-hint">tap to flip</div>
@@ -852,7 +853,10 @@ function renderCard() {
             <div class="card-number" id="cardNumberBack"></div>
             <div class="card-word" id="cardBackWord"></div>
             <div class="card-note" id="cardNote"></div>
-            <a class="gt-link" id="gtLink" href="#" target="_blank" onclick="event.stopPropagation()">🔊 Hør i Google Translate</a>
+            <div style="display:flex;gap:0.4rem;align-items:center;margin-top:0.3rem;">
+              <button class="copy-btn" id="copyBtnBack" style="display:none;" onclick="event.stopPropagation(); copyNorwegian()">📋 Kopier</button>
+              <a class="gt-link" id="gtLinkBack" style="display:none;" href="#" target="_blank" onclick="event.stopPropagation()">🔊 Google Translate</a>
+            </div>
           </div>
         </div>
       </div>
@@ -866,7 +870,9 @@ function renderCard() {
   const card = filteredCards[currentIndex];
   const front = direction === 'no-en' ? card.no : card.en;
   const back = direction === 'no-en' ? card.en : card.no;
-  const gtText = card.no;
+  const gtUrl = `https://translate.google.com/?sl=no&tl=en&text=${encodeURIComponent(card.no)}&op=translate`;
+  const noOnFront = direction === 'no-en';
+
   document.getElementById('flashcard').classList.remove('flipped');
   document.getElementById('cardFrontWord').textContent = front;
   document.getElementById('cardBackWord').textContent = back;
@@ -874,7 +880,14 @@ function renderCard() {
   document.getElementById('cardTopicBack').textContent = card.topic;
   document.getElementById('cardNumber').textContent = `${currentIndex+1} / ${filteredCards.length}`;
   document.getElementById('cardNumberBack').textContent = `${currentIndex+1} / ${filteredCards.length}`;
-  document.getElementById('gtLink').href = `https://translate.google.com/?sl=no&tl=en&text=${encodeURIComponent(gtText)}&op=translate`;
+
+  // Show copy + GT on Norwegian side only
+  document.getElementById('copyBtnFront').style.display = noOnFront ? '' : 'none';
+  document.getElementById('gtLinkFront').style.display = noOnFront ? '' : 'none';
+  document.getElementById('gtLinkFront').href = gtUrl;
+  document.getElementById('copyBtnBack').style.display = noOnFront ? 'none' : '';
+  document.getElementById('gtLinkBack').style.display = noOnFront ? 'none' : '';
+  document.getElementById('gtLinkBack').href = gtUrl;
 
   // Notes
   const cardId = getCardId(card);
@@ -947,15 +960,19 @@ function exportCSV() {
   URL.revokeObjectURL(url);
 }
 
-function copyWord() {
+function copyNorwegian() {
   if (!filteredCards.length) return;
-  const card = filteredCards[currentIndex];
-  const word = direction === 'no-en' ? card.no : card.en;
+  const word = filteredCards[currentIndex].no;
   navigator.clipboard.writeText(word).then(() => {
-    const btn = document.getElementById('copyBtn');
-    btn.textContent = '✓ Kopiert!';
-    btn.classList.add('copied');
-    setTimeout(() => { btn.textContent = '📋 Kopier'; btn.classList.remove('copied'); }, 1200);
+    // Flash both buttons (only visible one matters)
+    ['copyBtnFront','copyBtnBack'].forEach(id => {
+      const btn = document.getElementById(id);
+      if (btn && btn.style.display !== 'none') {
+        btn.textContent = '✓ Kopiert!';
+        btn.classList.add('copied');
+        setTimeout(() => { btn.textContent = '📋 Kopier'; btn.classList.remove('copied'); }, 1200);
+      }
+    });
   });
 }
 
