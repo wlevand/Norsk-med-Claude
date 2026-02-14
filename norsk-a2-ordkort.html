@@ -873,7 +873,11 @@ function renderCard() {
   const gtUrl = `https://translate.google.com/?sl=no&tl=en&text=${encodeURIComponent(card.no)}&op=translate`;
   const noOnFront = direction === 'no-en';
 
-  document.getElementById('flashcard').classList.remove('flipped');
+  const fc = document.getElementById('flashcard');
+  fc.style.transition = 'none';
+  fc.classList.remove('flipped');
+  fc.offsetHeight; // force reflow
+  fc.style.transition = '';
   document.getElementById('cardFrontWord').textContent = front;
   document.getElementById('cardBackWord').textContent = back;
   document.getElementById('cardTopic').textContent = card.topic;
