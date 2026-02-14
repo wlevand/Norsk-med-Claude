@@ -352,6 +352,86 @@
     nav a { font-size: 0.68rem; padding: 0.25rem 0.5rem; }
   }
 
+  /* ── USER NOTES ── */
+  .user-note-area {
+    margin-top: 0.75rem;
+    padding-top: 0.75rem;
+    border-top: 1px dashed var(--border);
+  }
+  .user-note-toggle {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--orange);
+    background: rgba(192,96,20,0.06);
+    border: 1px solid rgba(192,96,20,0.2);
+    padding: 0.25rem 0.6rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .user-note-toggle:hover { background: rgba(192,96,20,0.12); }
+  .user-note-toggle.has-note { background: var(--orange-light); border-color: var(--orange); }
+  .user-note-editor { display: none; margin-top: 0.5rem; }
+  .user-note-editor.show { display: block; }
+  .user-note-editor textarea {
+    width: 100%;
+    min-height: 60px;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.82rem;
+    border: 1px solid var(--orange);
+    border-radius: 8px;
+    padding: 0.5rem 0.7rem;
+    resize: vertical;
+    background: #fffdf8;
+    line-height: 1.5;
+  }
+  .user-note-editor textarea:focus { outline: 2px solid var(--orange); border-color: transparent; }
+  .user-note-saved {
+    margin-top: 0.5rem;
+    background: var(--orange-light);
+    border-radius: 8px;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.82rem;
+    color: var(--text);
+    white-space: pre-wrap;
+    line-height: 1.5;
+  }
+  .user-note-saved .note-label {
+    font-size: 0.68rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--orange);
+    margin-bottom: 0.2rem;
+    display: block;
+  }
+  .notes-toolbar {
+    display: flex;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+  }
+  .notes-toolbar-btn {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 600;
+    padding: 0.3rem 0.65rem;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    background: var(--bg-card);
+    color: var(--text-light);
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+    text-decoration: none;
+  }
+  .notes-toolbar-btn:hover { border-color: var(--orange); color: var(--orange); }
+  .notes-toolbar-btn.export-btn { color: var(--green); border-color: var(--green); }
+  .notes-toolbar-btn.export-btn:hover { background: var(--green); color: #fff; }
+  .notes-toolbar-btn.import-btn { color: var(--blue); border-color: var(--blue); }
+  .notes-toolbar-btn.import-btn:hover { background: var(--blue); color: #fff; }
+  .notes-file-input { display: none; }
+
   @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
   section { animation: fadeIn 0.4s ease-out; }
 </style>
@@ -382,6 +462,14 @@
   <a href="#handling">Handling & klær</a>
   <a href="#norge">Livet i Norge</a>
 </nav>
+
+<div style="max-width:960px;margin:0.5rem auto 0;padding:0 1rem;">
+  <div class="notes-toolbar">
+    <button class="notes-toolbar-btn export-btn" onclick="exportNotes()">⬇ Eksporter notater (JSON)</button>
+    <button class="notes-toolbar-btn import-btn" onclick="document.getElementById('notesFileInput').click()">⬆ Importer notater</button>
+    <input type="file" id="notesFileInput" class="notes-file-input" accept=".json" onchange="importNotesFile(this)">
+  </div>
+</div>
 
 <main>
 
@@ -522,6 +610,17 @@
       </div>
     </div>
   </div>
+
+  <div class="user-note-area">
+    <button class="user-note-toggle" id="noteToggle-bilde" onclick="toggleNote('bilde')">📝 Mine notater</button>
+    <div class="user-note-editor" id="noteEditor-bilde">
+      <textarea id="noteInput-bilde" placeholder="Skriv dine egne notater om Bildebeskrivelse her..." oninput="saveNote('bilde')"></textarea>
+    </div>
+    <div class="user-note-saved" id="noteSaved-bilde" style="display:none;">
+      <span class="note-label">📝 Mine notater</span>
+      <span id="noteText-bilde"></span>
+    </div>
+  </div>
 </section>
 
 <!-- ═══════════════════════════════════════════════ -->
@@ -585,6 +684,17 @@
       </div>
     </div>
   </div>
+
+  <div class="user-note-area">
+    <button class="user-note-toggle" id="noteToggle-meg-selv" onclick="toggleNote('meg-selv')">📝 Mine notater</button>
+    <div class="user-note-editor" id="noteEditor-meg-selv">
+      <textarea id="noteInput-meg-selv" placeholder="Skriv dine egne notater om Om meg selv her..." oninput="saveNote('meg-selv')"></textarea>
+    </div>
+    <div class="user-note-saved" id="noteSaved-meg-selv" style="display:none;">
+      <span class="note-label">📝 Mine notater</span>
+      <span id="noteText-meg-selv"></span>
+    </div>
+  </div>
 </section>
 
 <!-- ═══════════════════════════════════════════════ -->
@@ -641,6 +751,17 @@
         <span class="nor">Når hele familien er samlet, pleier vi å lage mat og spise sammen. Det er veldig koselig! <span class="grammar-note">når = subjunksjon</span></span>
         <span class="eng">When the whole family is gathered, we usually cook and eat together. It's very cozy!</span>
       </div>
+    </div>
+  </div>
+
+  <div class="user-note-area">
+    <button class="user-note-toggle" id="noteToggle-familie" onclick="toggleNote('familie')">📝 Mine notater</button>
+    <div class="user-note-editor" id="noteEditor-familie">
+      <textarea id="noteInput-familie" placeholder="Skriv dine egne notater om Familie her..." oninput="saveNote('familie')"></textarea>
+    </div>
+    <div class="user-note-saved" id="noteSaved-familie" style="display:none;">
+      <span class="note-label">📝 Mine notater</span>
+      <span id="noteText-familie"></span>
     </div>
   </div>
 </section>
@@ -713,6 +834,17 @@
       </div>
     </div>
   </div>
+
+  <div class="user-note-area">
+    <button class="user-note-toggle" id="noteToggle-jobb" onclick="toggleNote('jobb')">📝 Mine notater</button>
+    <div class="user-note-editor" id="noteEditor-jobb">
+      <textarea id="noteInput-jobb" placeholder="Skriv dine egne notater om Jobb & utdanning her..." oninput="saveNote('jobb')"></textarea>
+    </div>
+    <div class="user-note-saved" id="noteSaved-jobb" style="display:none;">
+      <span class="note-label">📝 Mine notater</span>
+      <span id="noteText-jobb"></span>
+    </div>
+  </div>
 </section>
 
 <!-- ═══════════════════════════════════════════════ -->
@@ -776,6 +908,17 @@
         <span class="nor">Jeg pleier å trene tre ganger i uka. Det er viktig å holde seg i form, synes jeg. <span class="grammar-note">pleier å = usually</span></span>
         <span class="eng">I usually work out three times a week. It's important to stay in shape, I think.</span>
       </div>
+    </div>
+  </div>
+
+  <div class="user-note-area">
+    <button class="user-note-toggle" id="noteToggle-fritid" onclick="toggleNote('fritid')">📝 Mine notater</button>
+    <div class="user-note-editor" id="noteEditor-fritid">
+      <textarea id="noteInput-fritid" placeholder="Skriv dine egne notater om Fritid & hobby her..." oninput="saveNote('fritid')"></textarea>
+    </div>
+    <div class="user-note-saved" id="noteSaved-fritid" style="display:none;">
+      <span class="note-label">📝 Mine notater</span>
+      <span id="noteText-fritid"></span>
     </div>
   </div>
 </section>
@@ -844,6 +987,17 @@
       </div>
     </div>
   </div>
+
+  <div class="user-note-area">
+    <button class="user-note-toggle" id="noteToggle-mat" onclick="toggleNote('mat')">📝 Mine notater</button>
+    <div class="user-note-editor" id="noteEditor-mat">
+      <textarea id="noteInput-mat" placeholder="Skriv dine egne notater om Mat & helse her..." oninput="saveNote('mat')"></textarea>
+    </div>
+    <div class="user-note-saved" id="noteSaved-mat" style="display:none;">
+      <span class="note-label">📝 Mine notater</span>
+      <span id="noteText-mat"></span>
+    </div>
+  </div>
 </section>
 
 <!-- ═══════════════════════════════════════════════ -->
@@ -894,6 +1048,17 @@
       </div>
     </div>
   </div>
+
+  <div class="user-note-area">
+    <button class="user-note-toggle" id="noteToggle-bolig" onclick="toggleNote('bolig')">📝 Mine notater</button>
+    <div class="user-note-editor" id="noteEditor-bolig">
+      <textarea id="noteInput-bolig" placeholder="Skriv dine egne notater om Bolig & hjem her..." oninput="saveNote('bolig')"></textarea>
+    </div>
+    <div class="user-note-saved" id="noteSaved-bolig" style="display:none;">
+      <span class="note-label">📝 Mine notater</span>
+      <span id="noteText-bolig"></span>
+    </div>
+  </div>
 </section>
 
 <!-- ═══════════════════════════════════════════════ -->
@@ -942,6 +1107,17 @@
         <span class="nor">Når det er fint vær, liker jeg å gå tur. Men hvis det regner, foretrekker jeg å være inne. <span class="grammar-note">når + hvis</span></span>
         <span class="eng">When the weather is nice, I like to go for a walk. But if it rains, I prefer to stay inside.</span>
       </div>
+    </div>
+  </div>
+
+  <div class="user-note-area">
+    <button class="user-note-toggle" id="noteToggle-vaer" onclick="toggleNote('vaer')">📝 Mine notater</button>
+    <div class="user-note-editor" id="noteEditor-vaer">
+      <textarea id="noteInput-vaer" placeholder="Skriv dine egne notater om Vær & årstider her..." oninput="saveNote('vaer')"></textarea>
+    </div>
+    <div class="user-note-saved" id="noteSaved-vaer" style="display:none;">
+      <span class="note-label">📝 Mine notater</span>
+      <span id="noteText-vaer"></span>
     </div>
   </div>
 </section>
@@ -1000,6 +1176,17 @@
       </div>
     </div>
   </div>
+
+  <div class="user-note-area">
+    <button class="user-note-toggle" id="noteToggle-dagligliv" onclick="toggleNote('dagligliv')">📝 Mine notater</button>
+    <div class="user-note-editor" id="noteEditor-dagligliv">
+      <textarea id="noteInput-dagligliv" placeholder="Skriv dine egne notater om Daglig rutine her..." oninput="saveNote('dagligliv')"></textarea>
+    </div>
+    <div class="user-note-saved" id="noteSaved-dagligliv" style="display:none;">
+      <span class="note-label">📝 Mine notater</span>
+      <span id="noteText-dagligliv"></span>
+    </div>
+  </div>
 </section>
 
 <!-- ═══════════════════════════════════════════════ -->
@@ -1044,6 +1231,17 @@
         <span class="nor">Neste sommer skal vi reise til hjemlandet mitt. Vi har ikke vært der på to år, og barna gleder seg! <span class="grammar-note">gleder seg = look forward to</span></span>
         <span class="eng">Next summer we're going to travel to my home country. We haven't been there in two years, and the kids are excited!</span>
       </div>
+    </div>
+  </div>
+
+  <div class="user-note-area">
+    <button class="user-note-toggle" id="noteToggle-reise" onclick="toggleNote('reise')">📝 Mine notater</button>
+    <div class="user-note-editor" id="noteEditor-reise">
+      <textarea id="noteInput-reise" placeholder="Skriv dine egne notater om Reise & transport her..." oninput="saveNote('reise')"></textarea>
+    </div>
+    <div class="user-note-saved" id="noteSaved-reise" style="display:none;">
+      <span class="note-label">📝 Mine notater</span>
+      <span id="noteText-reise"></span>
     </div>
   </div>
 </section>
@@ -1100,6 +1298,17 @@
         <span class="nor">Jeg handler vanligvis mat på Rema 1000 fordi det er billigst der. <span class="grammar-note">billigst = superlativ</span></span>
         <span class="eng">I usually buy groceries at Rema 1000 because it's cheapest there.</span>
       </div>
+    </div>
+  </div>
+
+  <div class="user-note-area">
+    <button class="user-note-toggle" id="noteToggle-handling" onclick="toggleNote('handling')">📝 Mine notater</button>
+    <div class="user-note-editor" id="noteEditor-handling">
+      <textarea id="noteInput-handling" placeholder="Skriv dine egne notater om Handling & klær her..." oninput="saveNote('handling')"></textarea>
+    </div>
+    <div class="user-note-saved" id="noteSaved-handling" style="display:none;">
+      <span class="note-label">📝 Mine notater</span>
+      <span id="noteText-handling"></span>
     </div>
   </div>
 </section>
@@ -1167,6 +1376,17 @@
       </div>
     </div>
   </div>
+
+  <div class="user-note-area">
+    <button class="user-note-toggle" id="noteToggle-norge" onclick="toggleNote('norge')">📝 Mine notater</button>
+    <div class="user-note-editor" id="noteEditor-norge">
+      <textarea id="noteInput-norge" placeholder="Skriv dine egne notater om Livet i Norge her..." oninput="saveNote('norge')"></textarea>
+    </div>
+    <div class="user-note-saved" id="noteSaved-norge" style="display:none;">
+      <span class="note-label">📝 Mine notater</span>
+      <span id="noteText-norge"></span>
+    </div>
+  </div>
 </section>
 
 </main>
@@ -1191,6 +1411,97 @@
   }
   window.addEventListener('scroll', updateNav);
   updateNav();
+
+  // ═══════════════════════════════════
+  // USER NOTES
+  // ═══════════════════════════════════
+  const vocabNotes = JSON.parse(localStorage.getItem('vocabNotes') || '{}');
+  const sectionIds = ['bilde','meg-selv','familie','jobb','fritid','mat','bolig','vaer','dagligliv','reise','handling','norge'];
+
+  function initNotes() {
+    sectionIds.forEach(sid => {
+      const note = vocabNotes[sid] || '';
+      const input = document.getElementById('noteInput-' + sid);
+      const saved = document.getElementById('noteSaved-' + sid);
+      const text = document.getElementById('noteText-' + sid);
+      const btn = document.getElementById('noteToggle-' + sid);
+      if (!input) return;
+      if (note) {
+        input.value = note;
+        text.textContent = note;
+        saved.style.display = '';
+        btn.classList.add('has-note');
+        btn.textContent = '📝 Mine notater ✓';
+      }
+    });
+  }
+
+  function toggleNote(sid) {
+    const editor = document.getElementById('noteEditor-' + sid);
+    const input = document.getElementById('noteInput-' + sid);
+    editor.classList.toggle('show');
+    if (editor.classList.contains('show')) input.focus();
+  }
+
+  function saveNote(sid) {
+    const input = document.getElementById('noteInput-' + sid);
+    const saved = document.getElementById('noteSaved-' + sid);
+    const text = document.getElementById('noteText-' + sid);
+    const btn = document.getElementById('noteToggle-' + sid);
+    const note = input.value.trim();
+    if (note) {
+      vocabNotes[sid] = note;
+      text.textContent = note;
+      saved.style.display = '';
+      btn.classList.add('has-note');
+      btn.textContent = '📝 Mine notater ✓';
+    } else {
+      delete vocabNotes[sid];
+      saved.style.display = 'none';
+      btn.classList.remove('has-note');
+      btn.textContent = '📝 Mine notater';
+    }
+    localStorage.setItem('vocabNotes', JSON.stringify(vocabNotes));
+  }
+
+  function exportNotes() {
+    const data = { exported: new Date().toISOString(), page: 'ordforrad', notes: vocabNotes };
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'norsk-ordforrad-notater.json';
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
+  function importNotesFile(input) {
+    const file = input.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      try {
+        const data = JSON.parse(e.target.result);
+        const imported = data.notes || data;
+        let count = 0;
+        Object.keys(imported).forEach(sid => {
+          if (sectionIds.includes(sid) && imported[sid]) {
+            vocabNotes[sid] = imported[sid];
+            count++;
+          }
+        });
+        localStorage.setItem('vocabNotes', JSON.stringify(vocabNotes));
+        initNotes();
+        alert(count + ' notater importert!');
+      } catch (err) {
+        alert('Kunne ikke lese filen. Sjekk at den er en gyldig JSON-fil.');
+      }
+      input.value = '';
+    };
+    reader.readAsText(file);
+  }
+
+  initNotes();
 </script>
 </body>
 </html>
