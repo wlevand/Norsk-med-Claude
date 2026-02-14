@@ -145,6 +145,71 @@
   .btn-show-all:hover { background: var(--blue); color: #fff; }
   .btn-direction { background: var(--purple-light); color: var(--purple); }
   .btn-direction:hover { background: var(--purple); color: #fff; }
+  .btn-export { background: var(--green-light); color: var(--green); }
+  .btn-export:hover { background: var(--green); color: #fff; }
+
+  /* ── NOTES ── */
+  .note-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    margin-top: 0.3rem;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--orange);
+    background: rgba(192,96,20,0.06);
+    border: 1px solid rgba(192,96,20,0.2);
+    padding: 0.25rem 0.6rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .note-btn:hover { background: rgba(192,96,20,0.12); }
+  .note-btn.has-note { background: var(--orange-light); border-color: var(--orange); }
+  .card-note {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.78rem;
+    color: var(--orange);
+    font-style: italic;
+    margin-top: 0.4rem;
+    text-align: center;
+    max-width: 90%;
+  }
+  .note-editor {
+    position: absolute;
+    bottom: 0.6rem;
+    left: 0.75rem;
+    right: 0.75rem;
+    display: none;
+    gap: 0.3rem;
+    align-items: flex-end;
+  }
+  .note-editor.show { display: flex; }
+  .note-editor textarea {
+    flex: 1;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.8rem;
+    border: 1px solid var(--orange);
+    border-radius: 6px;
+    padding: 0.4rem 0.6rem;
+    resize: none;
+    min-height: 2.5rem;
+    background: #fff;
+  }
+  .note-editor textarea:focus { outline: 2px solid var(--orange); border-color: transparent; }
+  .note-editor button {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.4rem 0.6rem;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    background: var(--orange);
+    color: #fff;
+    white-space: nowrap;
+  }
 
   .progress-info {
     font-size: 0.75rem;
@@ -496,6 +561,7 @@
     <button class="action-btn btn-reset" onclick="resetKnown()">↩ Nullstill</button>
     <button class="action-btn btn-show-all" onclick="toggleAllWords()">📋 Vis alle</button>
     <button class="action-btn btn-direction" id="dirBtn" onclick="toggleDirection()">🔄 NO→EN</button>
+    <button class="action-btn btn-export" onclick="exportCSV()">⬇ Eksporter</button>
     <span class="progress-info" id="progressInfo">0 / 0</span>
   </div>
   <div class="progress-bar-wrap">
@@ -512,7 +578,7 @@
 
 <div class="all-words-view" id="allWordsView">
   <table class="all-words-table">
-    <thead><tr><th>Norsk</th><th>English</th><th>Tema</th><th></th></tr></thead>
+    <thead><tr><th>Norsk</th><th>English</th><th>Tema</th><th>Notat</th><th></th></tr></thead>
     <tbody id="allWordsBody"></tbody>
   </table>
 </div>
@@ -522,11 +588,12 @@
   <div class="modal">
     <h3>Importer egne ord</h3>
     <p>Last opp en CSV-fil eller lim inn ordene direkte.<br>
-    Format: <code>norsk;english</code> eller <code>norsk;english;topic</code> (én per linje).</p>
+    Format: <code>norsk;english</code> eller <code>norsk;english;topic;notes</code> (én per linje).</p>
     <p style="font-size:0.8rem;color:var(--teal);">🌐 <strong>Google Translate:</strong> Last opp hele <code>translations.csv</code> fra Google Takeout — norsk↔engelsk filtreres automatisk!</p>
     <pre>norsk;english format:
 huset;the house
 å spise;to eat;Mat
+vennligst;please;Fraser;brukes i formelle situasjoner
 
 Google Translate format (auto-detected):
 Norwegian,English,huset,the house</pre>
@@ -539,7 +606,7 @@ Norwegian,English,huset,the house</pre>
 
     <div class="or-divider">— eller lim inn her —</div>
 
-    <textarea id="pasteArea" placeholder="huset;the house&#10;en stol;a chair&#10;å gå;to walk;Verb"></textarea>
+    <textarea id="pasteArea" placeholder="huset;the house&#10;en stol;a chair;Bolig&#10;å gå;to walk;Verb;uregelmessig: gikk, har gått"></textarea>
 
     <div class="modal-buttons">
       <button class="modal-btn modal-btn-clear" onclick="clearImported()">Slett importerte</button>
@@ -576,6 +643,7 @@ let currentIndex = 0;
 let filteredCards = [];
 let showingAllWords = false;
 let direction = 'no-en'; // 'no-en' or 'en-no'
+let notes = JSON.parse(localStorage.getItem('cardNotes') || '{}'); // { cardId: "note text" }
 
 function getAllVocab() { return [...csvVocab, ...importedVocab]; }
 function getCardId(c) { return c.no + '|' + c.en; }
@@ -645,7 +713,7 @@ function parseCSV(text, defaultTopic) {
     return words;
   }
 
-  // Normal CSV: norsk;english;topic
+  // Normal CSV: norsk;english;topic;notes
   const words = [];
   for (const raw of lines) {
     const line = raw.replace(/\r$/, '').trim();
@@ -664,7 +732,8 @@ function parseCSV(text, defaultTopic) {
       const no = parts[0].trim();
       const en = parts[1].trim();
       const topic = (parts[2] || defaultTopic || 'Uten tema').trim();
-      if (no && en) words.push({ no, en, topic });
+      const note = (parts[3] || '').trim();
+      if (no && en) words.push({ no, en, topic, note });
     }
   }
   return words;
@@ -698,6 +767,13 @@ async function loadCSVFiles() {
     if (seen.has(k)) return false;
     seen.add(k);
     return true;
+  });
+
+  // Load notes from CSV (don't overwrite user-edited notes)
+  csvVocab.forEach(w => {
+    if (w.note && !notes[getCardId(w)]) {
+      notes[getCardId(w)] = w.note;
+    }
   });
 
   return errors;
@@ -761,13 +837,21 @@ function renderCard() {
             <div class="card-topic-badge" id="cardTopic"></div>
             <div class="card-number" id="cardNumber"></div>
             <div class="card-word" id="cardFrontWord"></div>
-            <button class="copy-btn" id="copyBtn" onclick="event.stopPropagation(); copyWord()">📋 Kopier</button>
+            <div style="display:flex;gap:0.4rem;align-items:center;margin-top:0.3rem;">
+              <button class="copy-btn" id="copyBtn" onclick="event.stopPropagation(); copyWord()">📋 Kopier</button>
+              <button class="note-btn" id="noteBtn" onclick="event.stopPropagation(); openNoteEditor()">📝 Notat</button>
+            </div>
             <div class="card-tap-hint">tap to flip</div>
+            <div class="note-editor" id="noteEditor">
+              <textarea id="noteInput" placeholder="Skriv et notat..." onclick="event.stopPropagation()"></textarea>
+              <button onclick="event.stopPropagation(); saveNote()">Lagre</button>
+            </div>
           </div>
           <div class="card-face card-back">
             <div class="card-topic-badge" id="cardTopicBack"></div>
             <div class="card-number" id="cardNumberBack"></div>
             <div class="card-word" id="cardBackWord"></div>
+            <div class="card-note" id="cardNote"></div>
             <a class="gt-link" id="gtLink" href="#" target="_blank" onclick="event.stopPropagation()">🔊 Hør i Google Translate</a>
           </div>
         </div>
@@ -791,6 +875,18 @@ function renderCard() {
   document.getElementById('cardNumber').textContent = `${currentIndex+1} / ${filteredCards.length}`;
   document.getElementById('cardNumberBack').textContent = `${currentIndex+1} / ${filteredCards.length}`;
   document.getElementById('gtLink').href = `https://translate.google.com/?sl=no&tl=en&text=${encodeURIComponent(gtText)}&op=translate`;
+
+  // Notes
+  const cardId = getCardId(card);
+  const note = notes[cardId] || card.note || '';
+  const noteEl = document.getElementById('cardNote');
+  const noteBtnEl = document.getElementById('noteBtn');
+  const noteEditorEl = document.getElementById('noteEditor');
+  noteEl.textContent = note ? `📝 ${note}` : '';
+  noteBtnEl.textContent = note ? '📝 Notat ✓' : '📝 Notat';
+  noteBtnEl.classList.toggle('has-note', !!note);
+  noteEditorEl.classList.remove('show');
+
   updateProgress();
 }
 
@@ -808,6 +904,47 @@ function toggleDirection() {
   direction = direction === 'no-en' ? 'en-no' : 'no-en';
   document.getElementById('dirBtn').textContent = direction === 'no-en' ? '🔄 NO→EN' : '🔄 EN→NO';
   renderCard();
+}
+
+function openNoteEditor() {
+  if (!filteredCards.length) return;
+  const editor = document.getElementById('noteEditor');
+  const input = document.getElementById('noteInput');
+  const isOpen = editor.classList.contains('show');
+  if (isOpen) { editor.classList.remove('show'); return; }
+  const card = filteredCards[currentIndex];
+  input.value = notes[getCardId(card)] || card.note || '';
+  editor.classList.add('show');
+  input.focus();
+}
+
+function saveNote() {
+  if (!filteredCards.length) return;
+  const card = filteredCards[currentIndex];
+  const text = document.getElementById('noteInput').value.trim();
+  const cardId = getCardId(card);
+  if (text) { notes[cardId] = text; } else { delete notes[cardId]; }
+  localStorage.setItem('cardNotes', JSON.stringify(notes));
+  document.getElementById('noteEditor').classList.remove('show');
+  renderCard();
+}
+
+function exportCSV() {
+  const all = activeTopic === 'Alle' ? getAllVocab() : getAllVocab().filter(v => v.topic === activeTopic);
+  const lines = all.map(c => {
+    const note = notes[getCardId(c)] || c.note || '';
+    // Escape semicolons in notes
+    const safeNote = note.replace(/;/g, ',');
+    return `${c.no};${c.en};${c.topic};${safeNote}`;
+  });
+  const blob = new Blob([lines.join('\n')], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  const topicName = activeTopic === 'Alle' ? 'alle-ord' : activeTopic.toLowerCase().replace(/\s+/g, '-');
+  a.download = `norsk-ordkort-${topicName}.csv`;
+  a.click();
+  URL.revokeObjectURL(url);
 }
 
 function copyWord() {
@@ -863,8 +1000,10 @@ function renderAllWords() {
   const all = activeTopic === 'Alle' ? getAllVocab() : getAllVocab().filter(v => v.topic === activeTopic);
   document.getElementById('allWordsBody').innerHTML = all.map(c => {
     const gt = `https://translate.google.com/?sl=no&tl=en&text=${encodeURIComponent(c.no)}&op=translate`;
+    const note = notes[getCardId(c)] || c.note || '';
     return `<tr class="${knownIds.has(getCardId(c))?'known':''}">
       <td><strong>${c.no}</strong></td><td>${c.en}</td><td>${c.topic}</td>
+      <td style="font-size:0.75rem;color:var(--orange);font-style:italic;">${note}</td>
       <td><a class="gt-mini" href="${gt}" target="_blank">🔊</a></td></tr>`;
   }).join('');
 }
